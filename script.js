@@ -37,6 +37,9 @@ const adminModal = document.querySelector("#adminModal");
 const adminForm = document.querySelector("#adminForm");
 const modalClose = document.querySelector("#modalClose");
 const passwordStep = document.querySelector("#passwordStep");
+const postPickerStep = document.querySelector("#postPickerStep");
+const postPickerList = document.querySelector("#postPickerList");
+const newPostButton = document.querySelector("#newPostButton");
 const editorStep = document.querySelector("#editorStep");
 const passwordInput = document.querySelector("#adminPassword");
 const passwordConfirm = document.querySelector("#passwordConfirm");
@@ -46,18 +49,22 @@ const titleInput = document.querySelector("#postTitle");
 const descriptionInput = document.querySelector("#postDescription");
 const urlInput = document.querySelector("#postUrl");
 const fileInput = document.querySelector("#postFile");
+const savePostButton = document.querySelector("#savePostButton");
 
 let activeBoard = "portfolio";
+let editingPostId = null;
 let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
 let shareItems = readItems(shareStorageKey);
 portfolioItems = mergeDefaultPortfolioItems(portfolioItems);
 saveItems(portfolioStorageKey, portfolioItems);
 
 function mergeDefaultPortfolioItems(items) {
-  const savedIds = new Set(items.map((item) => item.id));
-  const missingDefaultItems = defaultPortfolioItems.filter((item) => !savedIds.has(item.id));
+  const savedById = new Map(items.map((item) => [item.id, item]));
+  const mergedDefaultItems = defaultPortfolioItems.map((item) => savedById.get(item.id) ?? item);
+  const defaultIds = new Set(defaultPortfolioItems.map((item) => item.id));
+  const customItems = items.filter((item) => !defaultIds.has(item.id));
 
-  return [...items, ...missingDefaultItems];
+  return [...mergedDefaultItems, ...customItems];
 }
 
 function readItems(key, fallbackItems = []) {
@@ -93,8 +100,10 @@ function createId() {
 
 function openAdminModal(board) {
   activeBoard = board;
+  editingPostId = null;
   adminForm.reset();
   passwordStep.hidden = false;
+  postPickerStep.hidden = true;
   editorStep.hidden = true;
   adminModal.hidden = false;
   document.body.classList.remove("is-admin");
@@ -220,6 +229,7 @@ async function downloadFile(id) {
 function closeAdminModal() {
   adminModal.hidden = true;
   document.body.classList.remove("is-admin");
+  editingPostId = null;
 }
 
 function unlockEditor() {
@@ -230,8 +240,56 @@ function unlockEditor() {
   }
 
   passwordStep.hidden = true;
-  editorStep.hidden = false;
+  postPickerStep.hidden = false;
   document.body.classList.add("is-admin");
+  renderPostPicker();
+}
+
+function getActiveItems() {
+  return activeBoard === "share" ? shareItems : portfolioItems;
+}
+
+function renderPostPicker() {
+  const items = getActiveItems();
+
+  if (items.length === 0) {
+    postPickerList.innerHTML = '<p class="empty-state">수정할 기존 글이 없습니다.</p>';
+    return;
+  }
+
+  postPickerList.innerHTML = items
+    .map((item, index) => {
+      const number = String(index + 1).padStart(2, "0");
+      const label = activeBoard === "share" ? item.category : number;
+
+      return `
+        <button class="post-picker-item" type="button" data-edit-post="${item.id}">
+          <strong>${escapeHtml(label)} ${escapeHtml(item.title)}</strong>
+          <span>${escapeHtml(item.description).split("\n")[0]}</span>
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function showEditor(item = null) {
+  const isShareBoard = activeBoard === "share";
+
+  editingPostId = item?.id ?? null;
+  postPickerStep.hidden = true;
+  editorStep.hidden = false;
+  titleInput.value = item?.title ?? "";
+  descriptionInput.value = item?.description ?? "";
+  categoryInput.value = item?.category ?? "";
+  urlInput.value = item?.url ?? "";
+  fileInput.value = "";
+  savePostButton.textContent = editingPostId ? "수정 저장" : "등록하기";
+
+  categoryInput.hidden = !isShareBoard;
+  urlInput.hidden = !isShareBoard;
+  fileInput.hidden = !isShareBoard;
+  categoryInput.required = isShareBoard;
+
   titleInput.focus();
 }
 
@@ -305,6 +363,20 @@ passwordInput?.addEventListener("keydown", (event) => {
   }
 });
 
+newPostButton?.addEventListener("click", () => showEditor());
+
+postPickerList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-edit-post]");
+
+  if (!button) return;
+
+  const item = getActiveItems().find((post) => post.id === button.dataset.editPost);
+
+  if (item) {
+    showEditor(item);
+  }
+});
+
 modalClose?.addEventListener("click", closeAdminModal);
 
 adminModal?.addEventListener("click", (event) => {
@@ -318,11 +390,17 @@ adminForm?.addEventListener("submit", async (event) => {
 
   try {
     if (activeBoard === "portfolio") {
-      portfolioItems.push({
-        id: createId(),
+      const nextItem = {
+        id: editingPostId ?? createId(),
         title: titleInput.value.trim(),
         description: descriptionInput.value.trim(),
-      });
+      };
+
+      if (editingPostId) {
+        portfolioItems = portfolioItems.map((item) => (item.id === editingPostId ? nextItem : item));
+      } else {
+        portfolioItems.push(nextItem);
+      }
 
       saveItems(portfolioStorageKey, portfolioItems);
       renderPortfolio();
@@ -330,23 +408,31 @@ adminForm?.addEventListener("submit", async (event) => {
       return;
     }
 
-    const id = createId();
+    const existingItem = shareItems.find((item) => item.id === editingPostId);
+    const id = editingPostId ?? createId();
     const url = urlInput.value.trim();
-    const file = await saveFile(id, fileInput.files[0]);
+    const newFile = await saveFile(id, fileInput.files[0]);
+    const file = newFile ?? existingItem?.file ?? null;
 
     if (!url && !file) {
       window.alert("공유 링크 또는 첨부파일 중 하나를 등록해주세요.");
       return;
     }
 
-    shareItems.push({
+    const nextItem = {
       id,
       category: categoryInput.value.trim(),
       title: titleInput.value.trim(),
       description: descriptionInput.value.trim(),
       url,
       file,
-    });
+    };
+
+    if (editingPostId) {
+      shareItems = shareItems.map((item) => (item.id === editingPostId ? nextItem : item));
+    } else {
+      shareItems.push(nextItem);
+    }
 
     saveItems(shareStorageKey, shareItems);
     renderShares();

@@ -468,6 +468,7 @@ body.is-admin .delete-button {
 }
 
 .password-step,
+.post-picker-step,
 .editor-step {
   display: grid;
   gap: 10px;
@@ -479,8 +480,45 @@ body.is-admin .delete-button {
 }
 
 .editor-step[hidden],
+.post-picker-step[hidden],
 .password-step[hidden] {
   display: none;
+}
+
+.post-picker-list {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.post-picker-item {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.78);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.post-picker-item strong {
+  font-size: 16px;
+}
+
+.post-picker-item span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.post-picker-item:hover {
+  border-color: rgba(25, 111, 114, 0.34);
+  background: #ffffff;
 }
 
 .shares-section {
