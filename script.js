@@ -4,7 +4,6 @@ const shareStorageKey = "sanggeunShareItems";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 
-const searchInput = document.querySelector("#searchInput");
 const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
 const adminOpenButtons = Array.from(document.querySelectorAll("[data-admin-open]"));
@@ -220,18 +219,12 @@ function renderPortfolio() {
 }
 
 function renderShares() {
-  const query = searchInput.value.trim().toLowerCase();
-  const filteredItems = shareItems.filter((item) => {
-    const text = `${item.category} ${item.title} ${item.description}`.toLowerCase();
-    return query.length === 0 || text.includes(query);
-  });
-
-  if (filteredItems.length === 0) {
+  if (shareItems.length === 0) {
     shareList.innerHTML = '<p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>';
     return;
   }
 
-  shareList.innerHTML = filteredItems
+  shareList.innerHTML = shareItems
     .map((item) => {
       const linkMarkup = item.url
         ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(item.title)} 링크 보기">링크</a>`
@@ -353,8 +346,6 @@ shareList?.addEventListener("click", (event) => {
   deleteFile(item?.file?.id);
   renderShares();
 });
-
-searchInput?.addEventListener("input", renderShares);
 
 renderPortfolio();
 renderShares();
