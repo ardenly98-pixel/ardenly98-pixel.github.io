@@ -3,6 +3,32 @@ const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
+const defaultPortfolioItems = [
+  {
+    id: "default-project-ai",
+    title: "프로젝트 학습 기반 AI 수업",
+    description:
+      "프로젝트 학습: 학급 뮤직비디오 만들기(제미나이, SUNO, 캔바)\n프로젝트 학습: 나만의 동화책 만들기(제미나이, 캔바)",
+  },
+  {
+    id: "default-automation",
+    title: "노트북LM과 제미나이 기반 교원 업무 자동화",
+    description:
+      "회의록 및 상담일직 작성 자동화\n학교 맞춤형 계획서/보고서 작성\n생기부 작성 자동화\n평가 계획 작성",
+  },
+  {
+    id: "default-generative-ai",
+    title: "생성형 AI 활용",
+    description:
+      "절차적 사고를 함양하는 프롬프트 엔지니어링\nGemini·NotebookLM 등 생성형 AI 완벽 이해",
+  },
+  {
+    id: "default-highlearning",
+    title: "하이러닝 활용 수업",
+    description:
+      "하이러닝을 활용한 실시간 소통 수업 사례 공유\n하이러닝 서논술형 평가 활용 방법 및 실제 운영",
+  },
+];
 
 const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
@@ -22,14 +48,24 @@ const urlInput = document.querySelector("#postUrl");
 const fileInput = document.querySelector("#postFile");
 
 let activeBoard = "portfolio";
-let portfolioItems = readItems(portfolioStorageKey);
+let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
 let shareItems = readItems(shareStorageKey);
+portfolioItems = mergeDefaultPortfolioItems(portfolioItems);
+saveItems(portfolioStorageKey, portfolioItems);
 
-function readItems(key) {
+function mergeDefaultPortfolioItems(items) {
+  const savedIds = new Set(items.map((item) => item.id));
+  const missingDefaultItems = defaultPortfolioItems.filter((item) => !savedIds.has(item.id));
+
+  return [...items, ...missingDefaultItems];
+}
+
+function readItems(key, fallbackItems = []) {
   try {
-    return JSON.parse(localStorage.getItem(key)) ?? [];
+    const savedItems = JSON.parse(localStorage.getItem(key));
+    return savedItems?.length ? savedItems : fallbackItems;
   } catch {
-    return [];
+    return fallbackItems;
   }
 }
 
@@ -65,6 +101,9 @@ function openAdminModal(board) {
 
   const isShareBoard = activeBoard === "share";
   modalTitle.textContent = isShareBoard ? "자료 공유 글쓰기" : "강의 포트폴리오 글쓰기";
+  descriptionInput.placeholder = isShareBoard
+    ? "자료 설명"
+    : "강의 세부 내용을 줄바꿈으로 입력하세요.";
   categoryInput.hidden = !isShareBoard;
   urlInput.hidden = !isShareBoard;
   fileInput.hidden = !isShareBoard;

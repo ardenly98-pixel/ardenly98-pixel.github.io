@@ -338,13 +338,13 @@ h1 {
 }
 
 .portfolio-card {
-  min-height: 220px;
+  min-height: 260px;
   padding: 20px;
 }
 
 .portfolio-card span {
   display: inline-flex;
-  margin-bottom: 32px;
+  margin-bottom: 26px;
   color: var(--coral);
   font-weight: 800;
 }
@@ -354,6 +354,10 @@ h1 {
   margin-bottom: 8px;
   font-size: 20px;
   line-height: 1.35;
+}
+
+.portfolio-card p {
+  white-space: pre-line;
 }
 
 .admin-form {
