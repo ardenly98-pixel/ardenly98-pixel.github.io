@@ -1,6 +1,8 @@
 const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
+const fileDatabaseName = "sanggeunBoardFiles";
+const fileStoreName = "files";
 
 const searchInput = document.querySelector("#searchInput");
 const portfolioList = document.querySelector("#portfolioList");
@@ -54,25 +56,6 @@ function createId() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function readFileAsDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    if (!file) {
-      resolve(null);
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      resolve({
-        name: file.name,
-        dataUrl: reader.result,
-      });
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
 function openAdminModal(board) {
   activeBoard = board;
   adminForm.reset();
@@ -91,6 +74,109 @@ function openAdminModal(board) {
   fileInput.required = false;
 
   setTimeout(() => passwordInput.focus(), 0);
+}
+
+function openFileDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(fileDatabaseName, 1);
+
+    request.onupgradeneeded = () => {
+      request.result.createObjectStore(fileStoreName, { keyPath: "id" });
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function saveFile(id, file) {
+  if (!file) return null;
+
+  const database = await openFileDatabase();
+
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(fileStoreName, "readwrite");
+    const store = transaction.objectStore(fileStoreName);
+
+    store.put({
+      id,
+      name: file.name,
+      type: file.type || "application/octet-stream",
+      blob: file,
+    });
+
+    transaction.oncomplete = () => {
+      database.close();
+      resolve({
+        id,
+        name: file.name,
+        type: file.type || "application/octet-stream",
+        size: file.size,
+      });
+    };
+    transaction.onerror = () => {
+      database.close();
+      reject(transaction.error);
+    };
+  });
+}
+
+async function getFile(id) {
+  const database = await openFileDatabase();
+
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(fileStoreName, "readonly");
+    const store = transaction.objectStore(fileStoreName);
+    const request = store.get(id);
+
+    request.onsuccess = () => {
+      database.close();
+      resolve(request.result);
+    };
+    request.onerror = () => {
+      database.close();
+      reject(request.error);
+    };
+  });
+}
+
+async function deleteFile(id) {
+  if (!id) return;
+
+  const database = await openFileDatabase();
+
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(fileStoreName, "readwrite");
+    const store = transaction.objectStore(fileStoreName);
+
+    store.delete(id);
+
+    transaction.oncomplete = () => {
+      database.close();
+      resolve();
+    };
+    transaction.onerror = () => {
+      database.close();
+      reject(transaction.error);
+    };
+  });
+}
+
+async function downloadFile(id) {
+  const file = await getFile(id);
+
+  if (!file) {
+    window.alert("첨부파일을 찾을 수 없습니다. 다시 등록해주세요.");
+    return;
+  }
+
+  const url = URL.createObjectURL(file.blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = file.name;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 function closeAdminModal() {
@@ -152,6 +238,8 @@ function renderShares() {
         : "";
       const fileMarkup = item.file?.dataUrl
         ? `<a href="${item.file.dataUrl}" download="${escapeHtml(item.file.name)}" aria-label="${escapeHtml(item.title)} 첨부파일 받기">첨부</a>`
+        : item.file?.id
+          ? `<button class="file-button" type="button" data-download-file="${item.file.id}" aria-label="${escapeHtml(item.title)} 첨부파일 받기">첨부</button>`
         : "";
 
       return `
@@ -196,39 +284,45 @@ adminModal?.addEventListener("click", (event) => {
 adminForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (activeBoard === "portfolio") {
-    portfolioItems.push({
-      id: createId(),
+  try {
+    if (activeBoard === "portfolio") {
+      portfolioItems.push({
+        id: createId(),
+        title: titleInput.value.trim(),
+        description: descriptionInput.value.trim(),
+      });
+
+      saveItems(portfolioStorageKey, portfolioItems);
+      renderPortfolio();
+      closeAdminModal();
+      return;
+    }
+
+    const id = createId();
+    const url = urlInput.value.trim();
+    const file = await saveFile(id, fileInput.files[0]);
+
+    if (!url && !file) {
+      window.alert("공유 링크 또는 첨부파일 중 하나를 등록해주세요.");
+      return;
+    }
+
+    shareItems.push({
+      id,
+      category: categoryInput.value.trim(),
       title: titleInput.value.trim(),
       description: descriptionInput.value.trim(),
+      url,
+      file,
     });
 
-    saveItems(portfolioStorageKey, portfolioItems);
-    renderPortfolio();
+    saveItems(shareStorageKey, shareItems);
+    renderShares();
     closeAdminModal();
-    return;
+  } catch (error) {
+    console.error(error);
+    window.alert("등록 중 문제가 생겼습니다. 파일 용량을 줄이거나 링크로 등록해보세요.");
   }
-
-  const file = await readFileAsDataUrl(fileInput.files[0]);
-  const url = urlInput.value.trim();
-
-  if (!url && !file) {
-    window.alert("공유 링크 또는 첨부파일 중 하나를 등록해주세요.");
-    return;
-  }
-
-  shareItems.push({
-    id: createId(),
-    category: categoryInput.value.trim(),
-    title: titleInput.value.trim(),
-    description: descriptionInput.value.trim(),
-    url,
-    file,
-  });
-
-  saveItems(shareStorageKey, shareItems);
-  renderShares();
-  closeAdminModal();
 });
 
 portfolioList?.addEventListener("click", (event) => {
@@ -242,12 +336,21 @@ portfolioList?.addEventListener("click", (event) => {
 });
 
 shareList?.addEventListener("click", (event) => {
+  const fileId = event.target.dataset.downloadFile;
+
+  if (fileId) {
+    downloadFile(fileId);
+    return;
+  }
+
   const id = event.target.dataset.deleteShare;
 
   if (!id) return;
 
+  const item = shareItems.find((shareItem) => shareItem.id === id);
   shareItems = shareItems.filter((item) => item.id !== id);
   saveItems(shareStorageKey, shareItems);
+  deleteFile(item?.file?.id);
   renderShares();
 });
 
