@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상근쌤 | 교사를 위한 AI 활용 강의</title>
+    <meta
+      name="description"
+      content="대한민국 교사를 위한 AI 활용 강의, 수업 설계, 바이브코딩 프로젝트 공유 웹사이트"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="상근쌤 홈">
+        <span class="brand-mark">AI</span>
+        <span>상근쌤</span>
+      </a>
+      <nav class="main-nav" aria-label="주요 메뉴">
+        <a href="#profile">강사 소개</a>
+        <a href="#portfolio">강의 포트폴리오</a>
+        <a href="#shares">자료 공유</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">For Korean Teachers</p>
+          <h1 id="hero-title">
+            <span class="hero-title-line">교실에서 바로 쓰는 AI 활용 역량,</span>
+            <span class="hero-title-line">함께 성장해요!</span>
+          </h1>
+          <p class="hero-lead">
+            <span>AI활용 프로젝트 수업, 업무 자동화, 생성형 AI 윤리, 바이브코딩까지</span>
+            <span>교사의 실제 수업에 맞춘 AI 연수를 운영합니다.</span>
+          </p>
+          <div class="hero-highlights" aria-label="주요 강의 영역">
+            <span>AI 수업 설계</span>
+            <span>교사 업무 자동화</span>
+            <span>자료 공유</span>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#contact">강의 문의하기</a>
+            <a class="button secondary" href="#shares">공유 자료 보기</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="section profile-section" id="profile" aria-labelledby="profile-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Instructor</p>
+            <h2 id="profile-title">강사 소개 및 이력</h2>
+          </div>
+        </div>
+        <div class="profile-grid">
+          <article class="profile-card">
+            <h3>강사 김상근</h3>
+            <img class="avatar" src="assets/kim-sanggeun.png" alt="김상근 강사 캐릭터 이미지" />
+            <p class="profile-intro">
+              <span>교사 및 학생을 대상으로 AI활용 프로젝트 수업(제미나이, 캔바, SUNO AI),</span>
+              <span>행정 업무 자동화(노트북LM, 바이브코딩)의 강의를 운영합니다.</span>
+              <span>현장 교사가 바로 적용할 수 있는 실습 중심 연수를 지향합니다.</span>
+            </p>
+          </article>
+          <div class="history-list">
+            <div>
+              <span>교육부</span>
+              <p>교사가 이끄는 교실혁명 멘토 교원</p>
+            </div>
+            <div>
+              <span>교육부</span>
+              <p>디지털 수업혁신 터치교사단</p>
+            </div>
+            <div>
+              <span>경기도교육청</span>
+              <p>AIDT 적용 실행 학습 연수 강사</p>
+            </div>
+            <div>
+              <span>경기도교육청</span>
+              <p>AI진로진학시스템 꿈it(잇)다 선도교원</p>
+            </div>
+            <div>
+              <span>경기도교육청</span>
+              <p>초등 진로체험망 꿈길 활용 선도교원</p>
+            </div>
+            <div>
+              <span>여주교육지원청</span>
+              <p>하이러닝 AI 서논술형 평가 리더교사</p>
+            </div>
+             <div>
+              <span>KERIS</span>
+              <p>한국교육학술정보원 디지털 지식샘터 강사</p>
+            </div>
+            <div>
+              <span>운영</span>
+              <p>디지털 기반 학생 맞춤교육 선도학교 운영 주무(2025)</p>
+            </div>
+            <div>
+              <span>운영</span>
+              <p>AI 디지털 활용 실천학교 운영 주무(2026)</p>
+            </div>
+            <div>
+              <span>기타</span>
+              <p>아이스크림미디어 클래스툴 마스터 교원 1기</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="portfolio" aria-labelledby="portfolio-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Portfolio</p>
+            <h2 id="portfolio-title">주요 강의 포트폴리오</h2>
+          </div>
+          <button class="admin-toggle" type="button" data-admin-open="portfolio" aria-label="포트폴리오 관리자 글쓰기">+</button>
+        </div>
+        <div class="portfolio-grid" id="portfolioList">
+          <p class="empty-state">등록된 강의 포트폴리오가 없습니다.</p>
+        </div>
+      </section>
+
+      <section class="section shares-section" id="shares" aria-labelledby="shares-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Free Board</p>
+            <h2 id="shares-title">자료 공유 게시판</h2>
+          </div>
+          <button class="admin-toggle" type="button" data-admin-open="share" aria-label="자료 공유 게시판 관리자 글쓰기">+</button>
+        </div>
+        <div class="board-toolbar">
+          <label for="searchInput">자료 검색</label>
+          <input id="searchInput" type="search" placeholder="예: 퀴즈, 활동지, 업무 자동화" />
+        </div>
+        <div class="share-list" id="shareList">
+          <p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">강의 문의</h2>
+          <p class="contact-copy">
+            <span>학교, 교육청, 연구회, 교원학습공동체 연수 문의를 환영합니다.</span>
+            <span>대상, 시간, 원하는 주제를 알려주시면 현장에 맞춘 강의안으로 제안드릴게요.</span>
+          </p>
+        </div>
+        <div class="contact-methods">
+          <a href="mailto:ksk1993@korea.kr">ksk1993@korea.kr</a>
+          <a href="tel:010-3005-3975">010-3005-3975</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 상근쌤. 교사의 성장을 위한 AI 활용 강의.</p>
+    </footer>
+
+    <div class="modal-backdrop" id="adminModal" hidden>
+      <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+        <button class="modal-close" type="button" id="modalClose" aria-label="팝업 닫기">×</button>
+        <p class="eyebrow">Admin</p>
+        <h2 id="adminModalTitle">관리자 글쓰기</h2>
+        <form class="admin-form" id="adminForm">
+          <div class="password-step" id="passwordStep">
+            <label for="adminPassword">비밀번호</label>
+            <input id="adminPassword" type="password" inputmode="numeric" maxlength="4" placeholder="숫자 4자리" autocomplete="off" />
+            <button class="button primary" type="button" id="passwordConfirm">확인</button>
+          </div>
+
+          <div class="editor-step" id="editorStep" hidden>
+            <input id="postCategory" type="text" placeholder="분류 예: 수업 도구" />
+            <input id="postTitle" type="text" placeholder="제목" required />
+            <textarea id="postDescription" rows="4" placeholder="설명" required></textarea>
+            <input id="postUrl" type="url" placeholder="공유 링크 https://..." />
+            <input id="postFile" type="file" />
+            <button class="button primary" type="submit">등록하기</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
