@@ -730,6 +730,12 @@ footer p {
     overflow-wrap: normal;
   }
 
+  .portfolio-card p.compact-lines {
+    font-size: 9.8px;
+    line-height: 1.9;
+    white-space: pre;
+  }
+
   .button,
   .contact-methods a,
   .share-item a,

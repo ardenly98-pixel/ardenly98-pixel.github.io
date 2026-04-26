@@ -336,7 +336,7 @@ function renderPortfolio() {
         <article class="portfolio-card">
           <span>${number}</span>
           <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(description)}</p>
+          <p class="${item.id === "default-project-ai" ? "compact-lines" : ""}">${escapeHtml(description)}</p>
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;
