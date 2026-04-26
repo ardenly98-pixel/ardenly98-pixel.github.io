@@ -9,7 +9,7 @@ const defaultPortfolioItems = [
     id: "default-project-ai",
     title: "프로젝트 학습 기반 AI 수업",
     description:
-      "프로젝트 학습: 학급 뮤직비디오 만들기(제미나이, SUNO, 캔바)\n프로젝트 학습: 나만의 동화책 만들기(제미나이, 캔바)",
+      "학급 뮤직비디오 만들기(제미나이, SUNO, 캔바)\n나만의 동화책 만들기(제미나이, 캔바)",
   },
   {
     id: "default-automation",

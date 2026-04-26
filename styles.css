@@ -294,6 +294,8 @@ h1 {
 .contact-section p {
   color: var(--muted);
   line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .profile-intro {
@@ -365,6 +367,7 @@ h1 {
 }
 
 .portfolio-card p {
+  font-size: 15px;
   white-space: pre-line;
 }
 
