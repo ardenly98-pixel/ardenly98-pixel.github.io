@@ -1,0 +1,9 @@
+[
+  {
+    "id": "pdf-topic-splitter",
+    "category": "노트북LM",
+    "title": "PDF 자동 분할기(30페이지)",
+    "description": "30페이지 이상 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되도록 30페이지 이하 파일로 분할해주는 프로그램",
+    "link": "https://example.com"
+  }
+]

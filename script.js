@@ -2,6 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
+const postsJsonPath = "posts.json?v=2026042619";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -31,6 +32,18 @@ const defaultPortfolioItems = [
   },
 ];
 const defaultShareItems = [];
+const fallbackJsonShareItems = [
+  {
+    id: "pdf-topic-splitter",
+    category: "노트북LM",
+    title: "PDF 자동 분할기(30페이지)",
+    description:
+      "30페이지 이상 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되도록 30페이지 이하 파일로 분할해주는 프로그램",
+    url: "https://example.com",
+    file: null,
+    source: "json",
+  },
+];
 
 const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
@@ -57,6 +70,7 @@ let activeBoard = "portfolio";
 let editingPostId = null;
 let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
 let shareItems = readItems(shareStorageKey, defaultShareItems);
+let jsonShareItems = [];
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
 portfolioItems = mergeDefaultPortfolioItems(portfolioItems, deletedDefaultPortfolioIds);
 portfolioItems = normalizePortfolioItems(portfolioItems);
@@ -65,6 +79,34 @@ shareItems = mergeDefaultShareItems(shareItems);
 shareItems = removeLinklessDefaultPdfItem(shareItems);
 saveItems(portfolioStorageKey, portfolioItems);
 saveItems(shareStorageKey, shareItems);
+
+async function loadJsonPosts() {
+  try {
+    const response = await fetch(postsJsonPath, { cache: "no-store" });
+
+    if (!response.ok) {
+      jsonShareItems = fallbackJsonShareItems;
+      renderShares();
+      return;
+    }
+
+    const posts = await response.json();
+    jsonShareItems = posts.map((post, index) => ({
+      id: post.id ?? `json-post-${index}`,
+      category: post.category ?? "자료",
+      title: post.title ?? "제목 없음",
+      description: post.description ?? "",
+      url: post.link ?? post.url ?? "",
+      file: null,
+      source: "json",
+    }));
+    renderShares();
+  } catch (error) {
+    console.warn("posts.json을 불러오지 못했습니다.", error);
+    jsonShareItems = fallbackJsonShareItems;
+    renderShares();
+  }
+}
 
 function mergeDefaultPortfolioItems(items, deletedIds = []) {
   const deletedIdSet = new Set(deletedIds);
@@ -337,7 +379,7 @@ function unlockEditor() {
 }
 
 function getActiveItems() {
-  return activeBoard === "share" ? shareItems : portfolioItems;
+  return activeBoard === "share" ? [...jsonShareItems, ...shareItems.filter((item) => item.source !== "json")] : portfolioItems;
 }
 
 function renderPostPicker() {
@@ -359,7 +401,7 @@ function renderPostPicker() {
             <strong>${escapeHtml(label)} ${escapeHtml(item.title)}</strong>
             <span>${escapeHtml(item.description).split("\n")[0]}</span>
           </button>
-          <button class="post-picker-delete" type="button" data-delete-post="${item.id}">삭제</button>
+          ${item.source === "json" ? '<span class="json-badge">JSON</span>' : `<button class="post-picker-delete" type="button" data-delete-post="${item.id}">삭제</button>`}
         </div>
       `;
     })
@@ -423,12 +465,18 @@ function renderPortfolio() {
 }
 
 function renderShares() {
-  if (shareItems.length === 0) {
+  const jsonKeys = new Set(jsonShareItems.map((item) => `${item.category}::${item.title}`));
+  const localShareItems = shareItems
+    .filter((item) => item.source !== "json")
+    .filter((item) => !jsonKeys.has(`${item.category}::${item.title}`));
+  const visibleShareItems = [...jsonShareItems, ...localShareItems];
+
+  if (visibleShareItems.length === 0) {
     shareList.innerHTML = '<p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>';
     return;
   }
 
-  shareList.innerHTML = shareItems
+  shareList.innerHTML = visibleShareItems
     .map((item) => {
       const linkMarkup = item.url
         ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(item.title)} 링크 보기">링크</a>`
@@ -487,6 +535,11 @@ postPickerList?.addEventListener("click", (event) => {
   const item = getActiveItems().find((post) => post.id === button.dataset.editPost);
 
   if (item) {
+    if (item.source === "json") {
+      window.alert("posts.json에 있는 글은 GitHub에서 posts.json 파일을 수정해야 합니다.");
+      return;
+    }
+
     showEditor(item);
   }
 });
@@ -616,3 +669,4 @@ shareList?.addEventListener("click", (event) => {
 
 renderPortfolio();
 renderShares();
+loadJsonPosts();

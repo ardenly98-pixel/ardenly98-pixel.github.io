@@ -569,6 +569,18 @@ body.is-admin .delete-button {
   cursor: pointer;
 }
 
+.json-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--teal);
+  background: rgba(79, 190, 163, 0.14);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .shares-section {
   background: #eef5f1;
 }
