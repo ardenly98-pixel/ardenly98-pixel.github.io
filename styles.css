@@ -283,11 +283,11 @@ h1 {
 
 .avatar {
   display: block;
-  width: min(78%, 360px);
-  height: clamp(300px, 32vw, 430px);
+  width: min(82%, 390px);
+  height: clamp(380px, 36vw, 510px);
   border-radius: 8px;
   object-fit: contain;
-  object-position: center top;
+  object-position: center bottom;
   background: #ffffff;
   border: 1px solid var(--line);
 }
@@ -667,7 +667,7 @@ footer p {
   }
 
   .avatar {
-    height: clamp(260px, 52vw, 380px);
+    height: clamp(360px, 68vw, 470px);
   }
 
   .portfolio-grid {
@@ -722,8 +722,8 @@ footer p {
   }
 
   .avatar {
-    width: min(100%, 300px);
-    height: 300px;
+    width: min(100%, 320px);
+    height: 390px;
   }
 
   .profile-intro span {
