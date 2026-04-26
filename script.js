@@ -105,7 +105,9 @@ function normalizePortfolioItems(items) {
       };
     }
 
-    if (item.title === "노트북LM과 제미나이 기반 교원 업무 자동화" || item.title === "노트북LM과 제미나이 기반\n교원 업무 자동화") {
+    const compactTitle = item.title.replace(/\s+/g, "");
+
+    if (compactTitle.includes("노트북LM과제미나이기반") || compactTitle.includes("노트북LM") && compactTitle.includes("업무자동화")) {
       return {
         ...item,
         id: "default-automation",
@@ -394,13 +396,19 @@ function renderPortfolio() {
   portfolioList.innerHTML = portfolioItems
     .map((item, index) => {
       const number = String(index + 1).padStart(2, "0");
-      const description = item.description.replaceAll("프로젝트 학습: ", "");
+      const description = item.description
+        .replaceAll("프로젝트 학습: ", "")
+        .replaceAll("AI로 학교 맞춤형", "AI활용 학교 맞춤형");
       const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
+      const title =
+        item.id === "default-automation"
+          ? "노트북LM과 제미나이 기반\n교원 업무 자동화"
+          : item.title;
 
       return `
         <article class="portfolio-card">
           <span>${number}</span>
-          <h3>${formatMultilineText(item.title)}</h3>
+          <h3>${formatMultilineText(title)}</h3>
           <p class="${listClass}">${escapeHtml(description)}</p>
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
