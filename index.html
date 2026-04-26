@@ -17,10 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2026042607" />
+    <link rel="stylesheet" href="styles.css?v=2026042608" />
     <script>
       if (!new URLSearchParams(window.location.search).has("v")) {
-        window.location.replace(`${window.location.pathname}?v=2026042607${window.location.hash}`);
+        window.location.replace(`${window.location.pathname}?v=2026042608${window.location.hash}`);
       }
     </script>
   </head>
@@ -271,9 +271,8 @@ Gemini·NotebookLM 등 생성형 AI 완벽 이해</p>
           const savedShareItems = JSON.parse(localStorage.getItem(shareKey)) || [];
           const cleanedShareItems = savedShareItems.filter((item) => {
             const isPdfSplitter = item.title === "PDF 자동 분할기(30페이지)";
-            const hasNoLink = !item.url;
 
-            return !(isPdfSplitter && hasNoLink);
+            return !isPdfSplitter;
           });
 
           localStorage.setItem(shareKey, JSON.stringify(cleanedShareItems));
@@ -283,6 +282,6 @@ Gemini·NotebookLM 등 생성형 AI 완벽 이해</p>
         }
       })();
     </script>
-    <script src="script.js?v=2026042607"></script>
+    <script src="script.js?v=2026042608"></script>
   </body>
 </html>

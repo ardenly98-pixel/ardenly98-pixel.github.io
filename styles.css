@@ -715,7 +715,7 @@ footer p {
 
   .portfolio-card {
     min-height: auto;
-    padding: 18px 16px;
+    padding: 18px 12px;
   }
 
   .portfolio-card span {
@@ -723,8 +723,11 @@ footer p {
   }
 
   .portfolio-card p {
-    font-size: 13px;
+    font-size: 11.5px;
     line-height: 1.75;
+    letter-spacing: 0;
+    word-break: keep-all;
+    overflow-wrap: normal;
   }
 
   .button,
