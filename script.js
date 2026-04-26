@@ -88,7 +88,7 @@ function removeLinklessDefaultPdfItem(items) {
   return items.filter((item) => {
     const isPdfSplitter = item.title === "PDF 자동 분할기(30페이지)";
 
-    return !isPdfSplitter;
+    return !(isPdfSplitter && !item.url);
   });
 }
 
@@ -331,12 +331,19 @@ function renderPortfolio() {
     .map((item, index) => {
       const number = String(index + 1).padStart(2, "0");
       const description = item.description.replaceAll("프로젝트 학습: ", "");
+      const descriptionMarkup =
+        item.id === "default-project-ai"
+          ? `<p class="compact-lines">${description
+              .split("\n")
+              .map((line) => `<span>${escapeHtml(line)}</span>`)
+              .join("")}</p>`
+          : `<p>${escapeHtml(description)}</p>`;
 
       return `
         <article class="portfolio-card">
           <span>${number}</span>
           <h3>${escapeHtml(item.title)}</h3>
-          <p class="${item.id === "default-project-ai" ? "compact-lines" : ""}">${escapeHtml(description)}</p>
+          ${descriptionMarkup}
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;
