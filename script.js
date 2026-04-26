@@ -59,6 +59,8 @@ let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
 let shareItems = readItems(shareStorageKey, defaultShareItems);
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
 portfolioItems = mergeDefaultPortfolioItems(portfolioItems, deletedDefaultPortfolioIds);
+portfolioItems = normalizePortfolioItems(portfolioItems);
+portfolioItems = dedupePortfolioItems(portfolioItems);
 shareItems = mergeDefaultShareItems(shareItems);
 shareItems = removeLinklessDefaultPdfItem(shareItems);
 saveItems(portfolioStorageKey, portfolioItems);
@@ -89,6 +91,36 @@ function removeLinklessDefaultPdfItem(items) {
     const isPdfSplitter = item.title === "PDF 자동 분할기(30페이지)";
 
     return !(isPdfSplitter && !item.url);
+  });
+}
+
+function normalizePortfolioItems(items) {
+  return items.map((item) => {
+    if (item.title !== "프로젝트 학습 기반 AI 수업") {
+      return item;
+    }
+
+    return {
+      ...item,
+      id: "default-project-ai",
+      description:
+        "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
+    };
+  });
+}
+
+function dedupePortfolioItems(items) {
+  const seenKeys = new Set();
+
+  return items.filter((item) => {
+    const key = item.id === "default-project-ai" ? item.id : item.title;
+
+    if (seenKeys.has(key)) {
+      return false;
+    }
+
+    seenKeys.add(key);
+    return true;
   });
 }
 

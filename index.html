@@ -17,10 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2026042611" />
+    <link rel="stylesheet" href="styles.css?v=2026042612" />
     <script>
       if (!new URLSearchParams(window.location.search).has("v")) {
-        window.location.replace(`${window.location.pathname}?v=2026042611${window.location.hash}`);
+        window.location.replace(`${window.location.pathname}?v=2026042612${window.location.hash}`);
       }
     </script>
   </head>
@@ -265,7 +265,9 @@
         try {
           const savedPortfolioItems = JSON.parse(localStorage.getItem(portfolioKey)) || [];
           const defaultIds = new Set(defaultPortfolioItems.map((item) => item.id));
-          const customPortfolioItems = savedPortfolioItems.filter((item) => !defaultIds.has(item.id));
+          const customPortfolioItems = savedPortfolioItems
+            .filter((item) => !defaultIds.has(item.id))
+            .filter((item) => item.title !== "프로젝트 학습 기반 AI 수업");
 
           localStorage.setItem(portfolioKey, JSON.stringify([...defaultPortfolioItems, ...customPortfolioItems]));
 
@@ -283,6 +285,6 @@
         }
       })();
     </script>
-    <script src="script.js?v=2026042611"></script>
+    <script src="script.js?v=2026042612"></script>
   </body>
 </html>
