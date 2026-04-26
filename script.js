@@ -13,15 +13,15 @@ const defaultPortfolioItems = [
   },
   {
     id: "default-automation",
-    title: "노트북LM과 제미나이 기반 교원 업무 자동화",
+    title: "노트북LM과 제미나이 기반\n교원 업무 자동화",
     description:
-      "- 회의록 및 상담일직 작성 자동화\n- AI로 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
+      "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
   },
   {
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- Gemini·NotebookLM 등 생성형 AI 완벽 이해",
+      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의",
   },
   {
     id: "default-highlearning",
@@ -96,16 +96,44 @@ function removeLinklessDefaultPdfItem(items) {
 
 function normalizePortfolioItems(items) {
   return items.map((item) => {
-    if (item.title !== "프로젝트 학습 기반 AI 수업") {
-      return item;
+    if (item.title === "프로젝트 학습 기반 AI 수업") {
+      return {
+        ...item,
+        id: "default-project-ai",
+        description:
+          "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
+      };
     }
 
-    return {
-      ...item,
-      id: "default-project-ai",
-      description:
-        "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
-    };
+    if (item.title === "노트북LM과 제미나이 기반 교원 업무 자동화" || item.title === "노트북LM과 제미나이 기반\n교원 업무 자동화") {
+      return {
+        ...item,
+        id: "default-automation",
+        title: "노트북LM과 제미나이 기반\n교원 업무 자동화",
+        description:
+          "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
+      };
+    }
+
+    if (item.title === "생성형 AI 활용") {
+      return {
+        ...item,
+        id: "default-generative-ai",
+        description:
+          "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의",
+      };
+    }
+
+    if (item.title === "하이러닝 활용 수업") {
+      return {
+        ...item,
+        id: "default-highlearning",
+        description:
+          "- 하이러닝을 활용한 실시간 소통 수업 사례 공유\n- 하이러닝 서논술형 평가 활용 방법 및 실제 운영",
+      };
+    }
+
+    return item;
   });
 }
 
@@ -149,6 +177,10 @@ function escapeHtml(value = "") {
 
     return entities[character];
   });
+}
+
+function formatMultilineText(value = "") {
+  return escapeHtml(value).replaceAll("\n", "<br />");
 }
 
 function createId() {
@@ -363,12 +395,13 @@ function renderPortfolio() {
     .map((item, index) => {
       const number = String(index + 1).padStart(2, "0");
       const description = item.description.replaceAll("프로젝트 학습: ", "");
+      const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
 
       return `
         <article class="portfolio-card">
           <span>${number}</span>
-          <h3>${escapeHtml(item.title)}</h3>
-          <p class="portfolio-list">${escapeHtml(description)}</p>
+          <h3>${formatMultilineText(item.title)}</h3>
+          <p class="${listClass}">${escapeHtml(description)}</p>
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;

@@ -375,6 +375,12 @@ h1 {
   color: var(--muted);
 }
 
+.portfolio-list.nowrap-list {
+  font-size: 14px;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
 .admin-form {
   display: grid;
   grid-template-columns: 1fr;
@@ -740,6 +746,12 @@ footer p {
     white-space: pre-line;
     word-break: keep-all;
     overflow-wrap: anywhere;
+  }
+
+  .portfolio-card p.nowrap-list {
+    font-size: 11px;
+    line-height: 1.7;
+    overflow-wrap: normal;
   }
 
   .button,
