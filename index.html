@@ -17,10 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2026042605" />
+    <link rel="stylesheet" href="styles.css?v=2026042606" />
     <script>
       if (!new URLSearchParams(window.location.search).has("v")) {
-        window.location.replace(`${window.location.pathname}?v=2026042605${window.location.hash}`);
+        window.location.replace(`${window.location.pathname}?v=2026042606${window.location.hash}`);
       }
     </script>
   </head>
@@ -234,6 +234,55 @@ Gemini·NotebookLM 등 생성형 AI 완벽 이해</p>
       </div>
     </div>
 
-    <script src="script.js?v=2026042605"></script>
+    <script>
+      (() => {
+        const portfolioKey = "sanggeunPortfolioItems";
+        const shareKey = "sanggeunShareItems";
+        const defaultPortfolioItems = [
+          {
+            id: "default-project-ai",
+            title: "프로젝트 학습 기반 AI 수업",
+            description: "학급 뮤직비디오 만들기(제미나이, SUNO, 캔바)\n나만의 동화책 만들기(제미나이, 캔바)",
+          },
+          {
+            id: "default-automation",
+            title: "노트북LM과 제미나이 기반 교원 업무 자동화",
+            description: "회의록 및 상담일직 작성 자동화\n학교 맞춤형 계획서/보고서 작성\n생기부 작성 자동화\n평가 계획 작성",
+          },
+          {
+            id: "default-generative-ai",
+            title: "생성형 AI 활용",
+            description: "절차적 사고를 함양하는 프롬프트 엔지니어링\nGemini·NotebookLM 등 생성형 AI 완벽 이해",
+          },
+          {
+            id: "default-highlearning",
+            title: "하이러닝 활용 수업",
+            description: "하이러닝을 활용한 실시간 소통 수업 사례 공유\n하이러닝 서논술형 평가 활용 방법 및 실제 운영",
+          },
+        ];
+
+        try {
+          const savedPortfolioItems = JSON.parse(localStorage.getItem(portfolioKey)) || [];
+          const defaultIds = new Set(defaultPortfolioItems.map((item) => item.id));
+          const customPortfolioItems = savedPortfolioItems.filter((item) => !defaultIds.has(item.id));
+
+          localStorage.setItem(portfolioKey, JSON.stringify([...defaultPortfolioItems, ...customPortfolioItems]));
+
+          const savedShareItems = JSON.parse(localStorage.getItem(shareKey)) || [];
+          const cleanedShareItems = savedShareItems.filter((item) => {
+            const isPdfSplitter = item.title === "PDF 자동 분할기(30페이지)";
+            const hasNoLink = !item.url;
+
+            return !(isPdfSplitter && hasNoLink);
+          });
+
+          localStorage.setItem(shareKey, JSON.stringify(cleanedShareItems));
+        } catch {
+          localStorage.setItem(portfolioKey, JSON.stringify(defaultPortfolioItems));
+          localStorage.setItem(shareKey, JSON.stringify([]));
+        }
+      })();
+    </script>
+    <script src="script.js?v=2026042606"></script>
   </body>
 </html>
