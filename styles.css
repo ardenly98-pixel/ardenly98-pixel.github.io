@@ -275,9 +275,9 @@ h1 {
   padding: clamp(20px, 2.4vw, 28px);
   text-align: center;
   background:
-    linear-gradient(145deg, rgba(79, 190, 163, 0.12), rgba(255, 255, 255, 0.92) 44%),
-    linear-gradient(315deg, rgba(229, 111, 81, 0.08), transparent 42%),
-    #ffffff;
+    linear-gradient(145deg, rgba(79, 190, 163, 0.22), rgba(255, 255, 255, 0.94) 48%),
+    linear-gradient(315deg, rgba(229, 111, 81, 0.14), transparent 46%),
+    #f5fbf8;
 }
 
 .profile-card h3 {
@@ -291,8 +291,11 @@ h1 {
   height: clamp(380px, 36vw, 510px);
   object-fit: contain;
   object-position: center bottom;
-  border: 0;
-  background: transparent;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  background: transparent !important;
 }
 
 .profile-card p,
