@@ -9,25 +9,25 @@ const defaultPortfolioItems = [
     id: "default-project-ai",
     title: "프로젝트 학습 기반 AI 수업",
     description:
-      "학급 뮤직비디오 만들기(제미나이, SUNO, 캔바)\n나만의 동화책 만들기(제미나이, 캔바)",
+      "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
   },
   {
     id: "default-automation",
     title: "노트북LM과 제미나이 기반 교원 업무 자동화",
     description:
-      "회의록 및 상담일직 작성 자동화\n학교 맞춤형 계획서/보고서 작성\n생기부 작성 자동화\n평가 계획 작성",
+      "- 회의록 및 상담일직 작성 자동화\n- AI로 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
   },
   {
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "절차적 사고를 함양하는 프롬프트 엔지니어링\nGemini·NotebookLM 등 생성형 AI 완벽 이해",
+      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- Gemini·NotebookLM 등 생성형 AI 완벽 이해",
   },
   {
     id: "default-highlearning",
     title: "하이러닝 활용 수업",
     description:
-      "하이러닝을 활용한 실시간 소통 수업 사례 공유\n하이러닝 서논술형 평가 활용 방법 및 실제 운영",
+      "- 하이러닝을 활용한 실시간 소통 수업 사례 공유\n- 하이러닝 서논술형 평가 활용 방법 및 실제 운영",
   },
 ];
 const defaultShareItems = [];
@@ -331,19 +331,12 @@ function renderPortfolio() {
     .map((item, index) => {
       const number = String(index + 1).padStart(2, "0");
       const description = item.description.replaceAll("프로젝트 학습: ", "");
-      const descriptionMarkup =
-        item.id === "default-project-ai"
-          ? `<p class="compact-lines">${description
-              .split("\n")
-              .map((line) => `<span>${escapeHtml(line)}</span>`)
-              .join("")}</p>`
-          : `<p>${escapeHtml(description)}</p>`;
 
       return `
         <article class="portfolio-card">
           <span>${number}</span>
           <h3>${escapeHtml(item.title)}</h3>
-          ${descriptionMarkup}
+          <p class="portfolio-list">${escapeHtml(description)}</p>
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;
