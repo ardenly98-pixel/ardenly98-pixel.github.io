@@ -30,17 +30,7 @@ const defaultPortfolioItems = [
       "하이러닝을 활용한 실시간 소통 수업 사례 공유\n하이러닝 서논술형 평가 활용 방법 및 실제 운영",
   },
 ];
-const defaultShareItems = [
-  {
-    id: "default-pdf-topic-splitter",
-    category: "노트북LM",
-    title: "PDF 자동 분할기(30페이지)",
-    description:
-      "30페이지 이상 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되도록 30페이지 이하 파일로 분할해주는 프로그램",
-    url: "",
-    file: null,
-  },
-];
+const defaultShareItems = [];
 
 const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
@@ -70,15 +60,15 @@ let shareItems = readItems(shareStorageKey, defaultShareItems);
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
 portfolioItems = mergeDefaultPortfolioItems(portfolioItems, deletedDefaultPortfolioIds);
 shareItems = mergeDefaultShareItems(shareItems);
+shareItems = removeLinklessDefaultPdfItem(shareItems);
 saveItems(portfolioStorageKey, portfolioItems);
 saveItems(shareStorageKey, shareItems);
 
 function mergeDefaultPortfolioItems(items, deletedIds = []) {
   const deletedIdSet = new Set(deletedIds);
-  const savedById = new Map(items.map((item) => [item.id, item]));
   const mergedDefaultItems = defaultPortfolioItems
     .filter((item) => !deletedIdSet.has(item.id))
-    .map((item) => savedById.get(item.id) ?? item);
+    .map((item) => ({ ...item }));
   const defaultIds = new Set(defaultPortfolioItems.map((item) => item.id));
   const customItems = items.filter((item) => !defaultIds.has(item.id));
 
@@ -92,6 +82,15 @@ function mergeDefaultShareItems(items) {
   const customItems = items.filter((item) => !defaultIds.has(item.id));
 
   return [...mergedDefaultItems, ...customItems];
+}
+
+function removeLinklessDefaultPdfItem(items) {
+  return items.filter((item) => {
+    const isPdfSplitter = item.title === "PDF 자동 분할기(30페이지)";
+    const hasNoLink = !item.url;
+
+    return !(isPdfSplitter && hasNoLink);
+  });
 }
 
 function readItems(key, fallbackItems = []) {
