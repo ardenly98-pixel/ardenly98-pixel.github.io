@@ -134,6 +134,10 @@ h1 {
   white-space: nowrap;
 }
 
+.hero-lead .hero-lead-mobile {
+  display: none;
+}
+
 .hero-highlights {
   display: flex;
   flex-wrap: wrap;
@@ -674,6 +678,15 @@ footer p {
 
   .hero-lead span {
     white-space: normal;
+  }
+
+  .hero-lead .hero-lead-desktop {
+    display: none;
+  }
+
+  .hero-lead .hero-lead-mobile {
+    display: block;
+    white-space: nowrap;
   }
 }
 
