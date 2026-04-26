@@ -21,7 +21,7 @@ const defaultPortfolioItems = [
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의",
+      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의",
   },
   {
     id: "default-highlearning",
@@ -122,7 +122,7 @@ function normalizePortfolioItems(items) {
         ...item,
         id: "default-generative-ai",
         description:
-          "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의",
+          "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의",
       };
     }
 
@@ -398,7 +398,8 @@ function renderPortfolio() {
       const number = String(index + 1).padStart(2, "0");
       const description = item.description
         .replaceAll("프로젝트 학습: ", "")
-        .replaceAll("AI로 학교 맞춤형", "AI활용 학교 맞춤형");
+        .replaceAll("AI로 학교 맞춤형", "AI활용 학교 맞춤형")
+        .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
       const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
       const title =
         item.id === "default-automation"
