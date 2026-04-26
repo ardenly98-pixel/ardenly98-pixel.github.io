@@ -400,6 +400,10 @@ function renderPortfolio() {
         .replaceAll("프로젝트 학습: ", "")
         .replaceAll("AI로 학교 맞춤형", "AI활용 학교 맞춤형")
         .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
+      const finalDescription =
+        item.id === "default-generative-ai" || item.title === "생성형 AI 활용"
+          ? "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의"
+          : description;
       const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
       const title =
         item.id === "default-automation"
@@ -410,7 +414,7 @@ function renderPortfolio() {
         <article class="portfolio-card">
           <span>${number}</span>
           <h3>${formatMultilineText(title)}</h3>
-          <p class="${listClass}">${escapeHtml(description)}</p>
+          <p class="${listClass}">${escapeHtml(finalDescription)}</p>
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;
