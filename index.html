@@ -17,10 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2026042602" />
+    <link rel="stylesheet" href="styles.css?v=2026042603" />
     <script>
       if (!new URLSearchParams(window.location.search).has("v")) {
-        window.location.replace(`${window.location.pathname}?v=2026042602${window.location.hash}`);
+        window.location.replace(`${window.location.pathname}?v=2026042603${window.location.hash}`);
       }
     </script>
   </head>
@@ -43,8 +43,11 @@
         <div class="hero-copy">
           <p class="eyebrow">For Korean Teachers</p>
           <h1 id="hero-title">
-            <span class="hero-title-line">교실에서 바로 쓰는 AI 활용 역량,</span>
-            <span class="hero-title-line">함께 성장해요!</span>
+            <span class="hero-title-line">
+              <span class="hero-mobile-line">교실에서 바로 쓰는</span>
+              <span class="hero-mobile-line">AI 활용 역량,</span>
+            </span>
+            <span class="hero-title-line">함께 성장해요.</span>
           </h1>
           <p class="hero-lead">
             <span>AI활용 프로젝트 수업, 업무 자동화, 생성형 AI 윤리, 바이브코딩까지</span>
@@ -75,9 +78,15 @@
             <h3>강사 김상근</h3>
             <img class="avatar" src="assets/kim-sanggeun.png" alt="김상근 강사 캐릭터 이미지" />
             <p class="profile-intro">
-              <span>교사 및 학생을 대상으로 AI활용 프로젝트 수업(제미나이, 캔바, SUNO AI),</span>
-              <span>행정 업무 자동화(노트북LM, 바이브코딩)의 강의를 운영합니다.</span>
-              <span>현장 교사가 바로 적용할 수 있는 실습 중심 연수를 지향합니다.</span>
+              <span class="desktop-intro-line">교사 및 학생을 대상으로 AI활용 프로젝트 수업(제미나이, 캔바, SUNO AI),</span>
+              <span class="desktop-intro-line">행정 업무 자동화(노트북LM, 바이브코딩)의 강의를 운영합니다.</span>
+              <span class="desktop-intro-line">현장 교사가 바로 적용할 수 있는 실습 중심 연수를 지향합니다.</span>
+              <span class="mobile-intro-line">교사 및 학생을 대상으로 AI활용 프로젝트 수업</span>
+              <span class="mobile-intro-line">(제미나이, 캔바, SUNO AI),</span>
+              <span class="mobile-intro-line">행정 업무 자동화(노트북LM, 바이브코딩)의</span>
+              <span class="mobile-intro-line">강의를 운영합니다.</span>
+              <span class="mobile-intro-line">현장 교사가 바로 적용할 수 있는</span>
+              <span class="mobile-intro-line">실습 중심 연수를 지향합니다.</span>
             </p>
           </article>
           <div class="history-list">
@@ -172,7 +181,13 @@ Gemini·NotebookLM 등 생성형 AI 완벽 이해</p>
           <button class="admin-toggle" type="button" data-admin-open="share" aria-label="자료 공유 게시판 관리자 글쓰기">+</button>
         </div>
         <div class="share-list" id="shareList">
-          <p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>
+          <article class="share-item">
+            <div>
+              <span class="tag">노트북LM</span>
+              <h3>PDF 자동 분할기(30페이지)</h3>
+              <p>30페이지 이상 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되도록 30페이지 이하 파일로 분할해주는 프로그램</p>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -225,6 +240,6 @@ Gemini·NotebookLM 등 생성형 AI 완벽 이해</p>
       </div>
     </div>
 
-    <script src="script.js?v=2026042602"></script>
+    <script src="script.js?v=2026042603"></script>
   </body>
 </html>

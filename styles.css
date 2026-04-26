@@ -117,6 +117,10 @@ h1 {
   white-space: nowrap;
 }
 
+.hero-mobile-line {
+  display: inline;
+}
+
 .hero-lead {
   max-width: 720px;
   margin-bottom: 0;
@@ -302,6 +306,10 @@ h1 {
 .profile-intro span {
   display: block;
   white-space: nowrap;
+}
+
+.profile-intro .mobile-intro-line {
+  display: none;
 }
 
 .history-list {
@@ -647,6 +655,10 @@ footer p {
     white-space: normal;
   }
 
+  .hero-mobile-line {
+    display: block;
+  }
+
   .hero-lead span {
     white-space: normal;
   }
@@ -677,7 +689,21 @@ footer p {
   }
 
   .profile-intro span {
-    white-space: normal;
+    white-space: nowrap;
+  }
+
+  .profile-intro .desktop-intro-line {
+    display: none;
+  }
+
+  .profile-intro .mobile-intro-line {
+    display: block;
+  }
+
+  .profile-intro {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.72;
   }
 
   .contact-copy span {
