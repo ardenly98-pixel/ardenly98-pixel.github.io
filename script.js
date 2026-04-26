@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026042619";
+const postsJsonPath = "posts.json?v=2026042620";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -39,7 +39,7 @@ const fallbackJsonShareItems = [
     title: "PDF 자동 분할기(30페이지)",
     description:
       "30페이지 이상 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되도록 30페이지 이하 파일로 분할해주는 프로그램",
-    url: "https://example.com",
+    url: "https://drive.google.com/drive/folders/1hih7BRRIBgWwwtmWUX5-XohDXLSH2OhS?usp=drive_link",
     file: null,
     source: "json",
   },
@@ -68,15 +68,12 @@ const savePostButton = document.querySelector("#savePostButton");
 
 let activeBoard = "portfolio";
 let editingPostId = null;
-let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
-let shareItems = readItems(shareStorageKey, defaultShareItems);
+let portfolioItems = defaultPortfolioItems.map((item) => ({ ...item }));
+let shareItems = [];
 let jsonShareItems = [];
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
-portfolioItems = mergeDefaultPortfolioItems(portfolioItems, deletedDefaultPortfolioIds);
 portfolioItems = normalizePortfolioItems(portfolioItems);
 portfolioItems = dedupePortfolioItems(portfolioItems);
-shareItems = mergeDefaultShareItems(shareItems);
-shareItems = removeLinklessDefaultPdfItem(shareItems);
 saveItems(portfolioStorageKey, portfolioItems);
 saveItems(shareStorageKey, shareItems);
 
@@ -465,11 +462,7 @@ function renderPortfolio() {
 }
 
 function renderShares() {
-  const jsonKeys = new Set(jsonShareItems.map((item) => `${item.category}::${item.title}`));
-  const localShareItems = shareItems
-    .filter((item) => item.source !== "json")
-    .filter((item) => !jsonKeys.has(`${item.category}::${item.title}`));
-  const visibleShareItems = [...jsonShareItems, ...localShareItems];
+  const visibleShareItems = jsonShareItems;
 
   if (visibleShareItems.length === 0) {
     shareList.innerHTML = '<p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>';
@@ -497,7 +490,6 @@ function renderShares() {
           <div class="item-actions">
             ${linkMarkup}
             ${fileMarkup}
-            <button class="delete-button" type="button" data-delete-share="${item.id}">삭제</button>
           </div>
         </article>
       `;
