@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026042625";
+const postsJsonPath = "posts.json?v=2026042626";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -36,7 +36,7 @@ const fallbackJsonShareItems = [
   {
     id: "pdf-topic-splitter",
     category: "노트북LM",
-    title: "「PDF 자동 분할기",
+    title: "「PDF 자동 분할기」",
     description:
       "30페이지 이상의 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되는 30페이지 이하 파일로 분할해주는 프로그램입니다.",
     url: "https://drive.google.com/drive/folders/1hih7BRRIBgWwwtmWUX5-XohDXLSH2OhS?usp=drive_link",
