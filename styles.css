@@ -715,10 +715,16 @@ footer p {
 
   .portfolio-card {
     min-height: auto;
+    padding: 18px 16px;
   }
 
   .portfolio-card span {
     margin-bottom: 28px;
+  }
+
+  .portfolio-card p {
+    font-size: 13px;
+    line-height: 1.75;
   }
 
   .button,
