@@ -1,6 +1,7 @@
 const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
+const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -55,12 +56,16 @@ let activeBoard = "portfolio";
 let editingPostId = null;
 let portfolioItems = readItems(portfolioStorageKey, defaultPortfolioItems);
 let shareItems = readItems(shareStorageKey);
-portfolioItems = mergeDefaultPortfolioItems(portfolioItems);
+let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
+portfolioItems = mergeDefaultPortfolioItems(portfolioItems, deletedDefaultPortfolioIds);
 saveItems(portfolioStorageKey, portfolioItems);
 
-function mergeDefaultPortfolioItems(items) {
+function mergeDefaultPortfolioItems(items, deletedIds = []) {
+  const deletedIdSet = new Set(deletedIds);
   const savedById = new Map(items.map((item) => [item.id, item]));
-  const mergedDefaultItems = defaultPortfolioItems.map((item) => savedById.get(item.id) ?? item);
+  const mergedDefaultItems = defaultPortfolioItems
+    .filter((item) => !deletedIdSet.has(item.id))
+    .map((item) => savedById.get(item.id) ?? item);
   const defaultIds = new Set(defaultPortfolioItems.map((item) => item.id));
   const customItems = items.filter((item) => !defaultIds.has(item.id));
 
@@ -263,10 +268,13 @@ function renderPostPicker() {
       const label = activeBoard === "share" ? item.category : number;
 
       return `
-        <button class="post-picker-item" type="button" data-edit-post="${item.id}">
-          <strong>${escapeHtml(label)} ${escapeHtml(item.title)}</strong>
-          <span>${escapeHtml(item.description).split("\n")[0]}</span>
-        </button>
+        <div class="post-picker-item">
+          <button class="post-picker-edit" type="button" data-edit-post="${item.id}">
+            <strong>${escapeHtml(label)} ${escapeHtml(item.title)}</strong>
+            <span>${escapeHtml(item.description).split("\n")[0]}</span>
+          </button>
+          <button class="post-picker-delete" type="button" data-delete-post="${item.id}">삭제</button>
+        </div>
       `;
     })
     .join("");
@@ -366,6 +374,13 @@ passwordInput?.addEventListener("keydown", (event) => {
 newPostButton?.addEventListener("click", () => showEditor());
 
 postPickerList?.addEventListener("click", (event) => {
+  const deleteButton = event.target.closest("[data-delete-post]");
+
+  if (deleteButton) {
+    deletePost(deleteButton.dataset.deletePost);
+    return;
+  }
+
   const button = event.target.closest("[data-edit-post]");
 
   if (!button) return;
@@ -376,6 +391,34 @@ postPickerList?.addEventListener("click", (event) => {
     showEditor(item);
   }
 });
+
+function deletePost(id) {
+  if (!id) return;
+
+  const shouldDelete = window.confirm("이 게시글을 삭제할까요?");
+
+  if (!shouldDelete) return;
+
+  if (activeBoard === "portfolio") {
+    if (defaultPortfolioItems.some((item) => item.id === id)) {
+      deletedDefaultPortfolioIds = [...new Set([...deletedDefaultPortfolioIds, id])];
+      saveItems(deletedDefaultPortfolioStorageKey, deletedDefaultPortfolioIds);
+    }
+
+    portfolioItems = portfolioItems.filter((item) => item.id !== id);
+    saveItems(portfolioStorageKey, portfolioItems);
+    renderPortfolio();
+    renderPostPicker();
+    return;
+  }
+
+  const item = shareItems.find((shareItem) => shareItem.id === id);
+  shareItems = shareItems.filter((shareItem) => shareItem.id !== id);
+  saveItems(shareStorageKey, shareItems);
+  deleteFile(item?.file?.id);
+  renderShares();
+  renderPostPicker();
+}
 
 modalClose?.addEventListener("click", closeAdminModal);
 

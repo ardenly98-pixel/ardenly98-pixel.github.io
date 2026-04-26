@@ -494,23 +494,34 @@ body.is-admin .delete-button {
 
 .post-picker-item {
   display: grid;
-  gap: 4px;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
   width: 100%;
   padding: 13px 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  color: var(--ink);
   background: rgba(255, 255, 255, 0.78);
+}
+
+.post-picker-edit {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
   font: inherit;
   text-align: left;
   cursor: pointer;
 }
 
-.post-picker-item strong {
+.post-picker-edit strong {
   font-size: 16px;
 }
 
-.post-picker-item span {
+.post-picker-edit span {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.45;
@@ -519,6 +530,18 @@ body.is-admin .delete-button {
 .post-picker-item:hover {
   border-color: rgba(25, 111, 114, 0.34);
   background: #ffffff;
+}
+
+.post-picker-delete {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgba(229, 111, 81, 0.28);
+  border-radius: 8px;
+  color: var(--coral);
+  background: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .shares-section {
