@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ardenly98-pixel.github.io/sitemap.xml
