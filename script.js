@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026042801";
+const postsJsonPath = "posts.json?v=2026043001";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -50,6 +50,16 @@ const fallbackJsonShareItems = [
     description:
       "학생들의 글쓰기 과제물에 대해 체계적이고 구체적인 피드백을 제공할 수 있도록, 하이러닝 서·논술형 평가 기능에서 활용 가능한 맞춤형 루브릭을 자동으로 생성해주는 GPT입니다.",
     url: "https://chatgpt.com/g/g-69eb8a4720e4819185c277b83c97bedc-haireoning-ai-seononsulhyeong-pyeongga-majcumhyeong-codeung-geulsseugi-jido-rubeurig-saengseonggi",
+    file: null,
+    source: "json",
+  },
+  {
+    id: "batch-document-pdf-converter",
+    category: "노트북LM",
+    title: "「문서일괄 PDF 변환기」",
+    description:
+      "한글(HWP/HWPX), 워드, 엑셀, 파워포인트 등 여러 문서 파일을 한 번에 PDF로 변환해주는 프로그램입니다.\n※ 일부 문서 형식은 한컴오피스 또는 LibreOffice 설치가 필요할 수 있습니다.",
+    url: "https://drive.google.com/drive/folders/1OHxP7_t46k3qbHOUnBz8bA0-FijJ_od2?usp=drive_link",
     file: null,
     source: "json",
   },
