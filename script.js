@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050108";
+const postsJsonPath = "posts.json?v=2026050109";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -285,7 +285,7 @@ function renderPortfolioDescription(item, description) {
     return `
       <div class="portfolio-list nowrap-list">
         <p>- <span class="inline-chip">하이러닝</span>을 활용한 실시간 소통 수업 사례 공유</p>
-        <p>- <span class="inline-chip">하이러닝</span> 서논술형 평가 활용 방법 및 실제 운영</p>
+        <p>- <span class="inline-chip">하이러닝 AI 서논술형 평가</span> 활용 방법 및 실제 운영</p>
       </div>
     `;
   }
