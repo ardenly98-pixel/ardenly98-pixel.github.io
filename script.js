@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050104";
+const postsJsonPath = "posts.json?v=2026050105";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -22,7 +22,7 @@ const defaultPortfolioItems = [
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인",
+      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발",
   },
   {
     id: "default-highlearning",
@@ -181,7 +181,7 @@ function normalizePortfolioItems(items) {
         ...item,
         id: "default-generative-ai",
         description:
-          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인",
+          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발",
       };
     }
 
@@ -275,9 +275,8 @@ function renderPortfolioDescription(item, description) {
     return `
       <div class="portfolio-list">
         <p>- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링</p>
-        ${renderToolTags(["제미나이", "캔바", "SUNO"])}
-        <p>- 생성형 AI 활용 강의</p>
-        <p>- 바이브코딩을 활용한 나만의 웹사이트 디자인</p>
+        <p>- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등</p>
+        <p>- 바이브코딩을 활용한 웹디자인, 프로그램 개발</p>
       </div>
     `;
   }
@@ -512,7 +511,7 @@ function renderPortfolio() {
         .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
       const finalDescription =
         item.id === "default-generative-ai" || item.title === "생성형 AI 활용"
-          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인"
+          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발"
           : description;
       const title =
         item.id === "default-automation"
