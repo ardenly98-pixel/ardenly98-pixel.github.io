@@ -21,7 +21,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Noto Sans KR", system-ui, sans-serif;
+  font-family: "Pretendard", "Noto Sans KR", system-ui, sans-serif;
   color: var(--ink);
   background: var(--paper);
   letter-spacing: 0;
@@ -111,13 +111,17 @@ p {
 h1 {
   margin-bottom: 14px;
   font-size: clamp(38px, 4.8vw, 64px);
-  line-height: 1.06;
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
 .hero-title-line {
   display: block;
   white-space: nowrap;
+}
+
+.hero-title-line + .hero-title-line {
+  margin-top: 6px;
 }
 
 .hero-mobile-line {
@@ -763,15 +767,15 @@ footer p {
 
   .hero-highlights {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.36fr);
-    gap: 7px;
+    grid-template-columns: minmax(0, 1.72fr) minmax(0, 0.78fr);
+    gap: 6px;
     width: min(100%, 670px);
   }
 
   .hero-highlights span {
     justify-content: center;
     min-height: 34px;
-    padding: 0 6px;
+    padding: 0 4px;
     font-size: 13px;
     text-align: center;
     white-space: nowrap;
@@ -786,6 +790,7 @@ footer p {
 @media (max-width: 620px) {
   h1 {
     font-size: 34px;
+    line-height: 1.16;
   }
 
   .hero {
