@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050103";
+const postsJsonPath = "posts.json?v=2026050104";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -22,7 +22,7 @@ const defaultPortfolioItems = [
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의",
+      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인",
   },
   {
     id: "default-highlearning",
@@ -181,7 +181,7 @@ function normalizePortfolioItems(items) {
         ...item,
         id: "default-generative-ai",
         description:
-          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의",
+          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인",
       };
     }
 
@@ -268,6 +268,26 @@ function renderPortfolioDescription(item, description) {
     return `
       ${renderToolTags(["제미나이", "노트북LM"])}
       <p class="portfolio-list">${escapeHtml(description)}</p>
+    `;
+  }
+
+  if (item.id === "default-generative-ai" || item.title === "생성형 AI 활용") {
+    return `
+      <div class="portfolio-list">
+        <p>- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링</p>
+        ${renderToolTags(["제미나이", "캔바", "SUNO"])}
+        <p>- 생성형 AI 활용 강의</p>
+        <p>- 바이브코딩을 활용한 나만의 웹사이트 디자인</p>
+      </div>
+    `;
+  }
+
+  if (item.id === "default-highlearning" || item.title === "하이러닝 활용 수업") {
+    return `
+      <div class="portfolio-list nowrap-list">
+        <p>- <span class="inline-chip">하이러닝</span>을 활용한 실시간 소통 수업 사례 공유</p>
+        <p>- <span class="inline-chip">하이러닝</span> 서논술형 평가 활용 방법 및 실제 운영</p>
+      </div>
     `;
   }
 
@@ -492,7 +512,7 @@ function renderPortfolio() {
         .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
       const finalDescription =
         item.id === "default-generative-ai" || item.title === "생성형 AI 활용"
-          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의"
+          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의\n- 바이브코딩을 활용한 나만의 웹사이트 디자인"
           : description;
       const title =
         item.id === "default-automation"
@@ -501,8 +521,10 @@ function renderPortfolio() {
 
       return `
         <article class="portfolio-card">
-          <span>${number}</span>
-          <h3>${formatMultilineText(title)}</h3>
+          <div class="portfolio-card-title">
+            <span>${number}</span>
+            <h3>${formatMultilineText(title)}</h3>
+          </div>
           ${renderPortfolioDescription(item, finalDescription)}
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
