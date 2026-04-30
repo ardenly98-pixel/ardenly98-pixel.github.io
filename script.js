@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050101";
+const postsJsonPath = "posts.json?v=2026050103";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -10,11 +10,11 @@ const defaultPortfolioItems = [
     id: "default-project-ai",
     title: "프로젝트 학습 기반 AI 수업",
     description:
-      "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
+      "- 학급 뮤직비디오 만들기\n- 나만의 동화책 만들기",
   },
   {
     id: "default-automation",
-    title: "노트북LM과 제미나이 기반\n교원 업무 자동화",
+    title: "교원 업무 자동화",
     description:
       "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
   },
@@ -22,7 +22,7 @@ const defaultPortfolioItems = [
     id: "default-generative-ai",
     title: "생성형 AI 활용",
     description:
-      "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의",
+      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의",
   },
   {
     id: "default-highlearning",
@@ -160,7 +160,7 @@ function normalizePortfolioItems(items) {
         ...item,
         id: "default-project-ai",
         description:
-          "- 학급 뮤직비디오 만들기\n  (제미나이, SUNO, 캔바)\n- 나만의 동화책 만들기\n  (제미나이, 캔바)",
+          "- 학급 뮤직비디오 만들기\n- 나만의 동화책 만들기",
       };
     }
 
@@ -170,7 +170,7 @@ function normalizePortfolioItems(items) {
       return {
         ...item,
         id: "default-automation",
-        title: "노트북LM과 제미나이 기반\n교원 업무 자동화",
+        title: "교원 업무 자동화",
         description:
           "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
       };
@@ -181,7 +181,7 @@ function normalizePortfolioItems(items) {
         ...item,
         id: "default-generative-ai",
         description:
-          "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의",
+          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의",
       };
     }
 
@@ -242,6 +242,37 @@ function escapeHtml(value = "") {
 
 function formatMultilineText(value = "") {
   return escapeHtml(value).replaceAll("\n", "<br />");
+}
+
+function renderToolTags(labels = []) {
+  return `
+    <div class="tool-tags">
+      ${labels.map((label) => `<span>${escapeHtml(label)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function renderPortfolioDescription(item, description) {
+  if (item.id === "default-project-ai" || item.title === "프로젝트 학습 기반 AI 수업") {
+    return `
+      <div class="portfolio-list">
+        <p>- 학급 뮤직비디오 만들기</p>
+        ${renderToolTags(["제미나이", "SUNO", "캔바"])}
+        <p>- 나만의 동화책 만들기</p>
+        ${renderToolTags(["제미나이", "캔바"])}
+      </div>
+    `;
+  }
+
+  if (item.id === "default-automation" || item.title === "교원 업무 자동화") {
+    return `
+      ${renderToolTags(["제미나이", "노트북LM"])}
+      <p class="portfolio-list">${escapeHtml(description)}</p>
+    `;
+  }
+
+  const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
+  return `<p class="${listClass}">${escapeHtml(description)}</p>`;
 }
 
 function createId() {
@@ -461,19 +492,18 @@ function renderPortfolio() {
         .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
       const finalDescription =
         item.id === "default-generative-ai" || item.title === "생성형 AI 활용"
-          ? "- 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바 등 생성형 AI 활용 강의"
+          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 제미나이, 캔바, SUNO 등 생성형 AI 활용 강의"
           : description;
-      const listClass = item.id === "default-highlearning" ? "portfolio-list nowrap-list" : "portfolio-list";
       const title =
         item.id === "default-automation"
-          ? "노트북LM과 제미나이 기반\n교원 업무 자동화"
+          ? "교원 업무 자동화"
           : item.title;
 
       return `
         <article class="portfolio-card">
           <span>${number}</span>
           <h3>${formatMultilineText(title)}</h3>
-          <p class="${listClass}">${escapeHtml(finalDescription)}</p>
+          ${renderPortfolioDescription(item, finalDescription)}
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
         </article>
       `;

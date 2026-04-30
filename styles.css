@@ -107,7 +107,7 @@ p {
 
 h1 {
   margin-bottom: 18px;
-  font-size: clamp(42px, 5.7vw, 76px);
+  font-size: clamp(40px, 5.2vw, 70px);
   line-height: 1.06;
   letter-spacing: 0;
 }
@@ -123,9 +123,10 @@ h1 {
 
 .hero-lead {
   max-width: 720px;
+  margin-top: 16px;
   margin-bottom: 0;
   color: #45524e;
-  font-size: clamp(17px, 1.65vw, 21px);
+  font-size: clamp(16px, 1.45vw, 19px);
   line-height: 1.65;
 }
 
@@ -142,14 +143,15 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 22px;
+  max-width: 900px;
+  margin-top: 20px;
 }
 
 .hero-highlights span {
   display: inline-flex;
   align-items: center;
   min-height: 36px;
-  padding: 0 13px;
+  padding: 0 14px;
   border: 1px solid rgba(25, 111, 114, 0.14);
   border-radius: 8px;
   color: #21423d;
@@ -270,7 +272,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: clamp(20px, 2.4vw, 28px);
   text-align: center;
   background:
@@ -357,13 +359,13 @@ h1 {
 }
 
 .portfolio-card {
-  min-height: 260px;
-  padding: 20px;
+  min-height: 250px;
+  padding: 18px 18px 20px;
 }
 
-.portfolio-card span {
+.portfolio-card > span {
   display: inline-flex;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
   color: var(--coral);
   font-weight: 800;
 }
@@ -371,17 +373,47 @@ h1 {
 .portfolio-card h3,
 .share-item h3 {
   margin-bottom: 8px;
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.35;
 }
 
 .portfolio-card p {
-  font-size: 15px;
+  font-size: 14px;
   white-space: pre-line;
 }
 
 .portfolio-list {
   color: var(--muted);
+  display: grid;
+  gap: 7px;
+}
+
+.portfolio-list p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  white-space: normal;
+}
+
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 5px 10px;
+}
+
+.tool-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(25, 111, 114, 0.18);
+  border-radius: 8px;
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .portfolio-list.nowrap-list {
@@ -758,22 +790,21 @@ footer p {
     padding: 18px 12px;
   }
 
-  .portfolio-card span {
+  .portfolio-card > span {
     margin-bottom: 28px;
   }
 
   .portfolio-card p {
-    font-size: 11.5px;
-    line-height: 1.75;
-    letter-spacing: 0;
-    word-break: keep-all;
-    overflow-wrap: normal;
-  }
-
-  .portfolio-card p.portfolio-list {
     font-size: 12.5px;
     line-height: 1.65;
-    white-space: pre-line;
+    letter-spacing: 0;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .portfolio-card .portfolio-list {
+    font-size: 12.5px;
+    line-height: 1.65;
     word-break: keep-all;
     overflow-wrap: anywhere;
   }
@@ -782,6 +813,17 @@ footer p {
     font-size: 11px;
     line-height: 1.7;
     overflow-wrap: normal;
+  }
+
+  .tool-tags {
+    gap: 5px;
+    margin-left: 8px;
+  }
+
+  .tool-tags span {
+    min-height: 26px;
+    padding: 0 8px;
+    font-size: 11.5px;
   }
 
   .button,
