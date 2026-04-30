@@ -767,7 +767,7 @@ footer p {
 
   .hero-highlights {
     display: grid;
-    grid-template-columns: minmax(0, 1.72fr) minmax(0, 0.78fr);
+    grid-template-columns: minmax(0, 1.54fr) minmax(0, 0.92fr);
     gap: 6px;
     width: min(100%, 670px);
   }
@@ -775,7 +775,7 @@ footer p {
   .hero-highlights span {
     justify-content: center;
     min-height: 34px;
-    padding: 0 4px;
+    padding: 0 5px;
     font-size: 13px;
     text-align: center;
     white-space: nowrap;
@@ -795,6 +795,22 @@ footer p {
 
   .hero {
     padding-top: 30px;
+  }
+
+  .history-list div {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .history-list span {
+    font-size: 14px;
+  }
+
+  .history-list p {
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: normal;
   }
 
   .portfolio-grid,
