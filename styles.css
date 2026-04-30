@@ -317,6 +317,10 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.share-item p {
+  white-space: pre-line;
+}
+
 .profile-intro {
   margin-bottom: 0;
   width: 100%;

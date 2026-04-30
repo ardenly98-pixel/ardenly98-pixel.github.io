@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050107";
+const postsJsonPath = "posts.json?v=2026050108";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -58,7 +58,7 @@ const fallbackJsonShareItems = [
     category: "노트북LM",
     title: "「문서일괄 PDF 변환기」",
     description:
-      "한글(HWP/HWPX), 워드, 엑셀, 파워포인트 등 여러 문서 파일을 한 번에 PDF로 변환해주는 프로그램입니다. ※ 변환 중에는 다른 창을 클릭하지 말고 잠시 기다려야 합니다. 일부 문서 형식은 한컴오피스 또는 LibreOffice 설치가 필요할 수 있습니다.",
+      "한글(HWP/HWPX), 워드, 엑셀, 파워포인트 등 여러 문서 파일을 한 번에 PDF로 변환해주는 프로그램입니다.\n※ 변환 중에는 다른 창을 클릭하지 말고 잠시 기다려야 합니다. 일부 문서 형식은 한컴오피스 또는 LibreOffice 설치가 필요할 수 있습니다.",
     url: "https://drive.google.com/drive/folders/1OHxP7_t46k3qbHOUnBz8bA0-FijJ_od2?usp=drive_link",
     file: null,
     source: "json",
