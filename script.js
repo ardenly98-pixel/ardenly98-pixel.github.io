@@ -16,7 +16,7 @@ const defaultPortfolioItems = [
     id: "default-automation",
     title: "교원 업무 자동화",
     description:
-      "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
+      "- 회의록 및 상담일지 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
   },
   {
     id: "default-generative-ai",
@@ -173,7 +173,7 @@ function normalizePortfolioItems(items) {
         id: "default-automation",
         title: "교원 업무 자동화",
         description:
-          "- 회의록 및 상담일직 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
+          "- 회의록 및 상담일지 작성 자동화\n- AI활용 학교 맞춤형 계획서/보고서 작성\n- 평가계획&생기부 작성 자동화",
       };
     }
 
