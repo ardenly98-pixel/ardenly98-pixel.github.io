@@ -268,7 +268,6 @@ function renderPortfolioDescription(item, description) {
 
   if (item.id === "default-automation" || item.title === "교원 업무 자동화") {
     return `
-      ${renderToolTags(["제미나이", "노트북LM"])}
       <p class="portfolio-list">${escapeHtml(description)}</p>
     `;
   }
@@ -526,12 +525,17 @@ function renderPortfolio() {
         item.id === "default-automation"
           ? "교원 업무 자동화"
           : item.title;
+      const titleTools =
+        item.id === "default-automation" || item.title === "교원 업무 자동화"
+          ? `<div class="tool-tags title-tool-tags" aria-label="교원 업무 자동화 활용 도구"><span>제미나이</span><span>노트북LM</span></div>`
+          : "";
 
       return `
         <article class="portfolio-card">
           <div class="portfolio-card-title">
             <span>${number}</span>
             <h3>${formatMultilineText(title)}</h3>
+            ${titleTools}
           </div>
           ${renderPortfolioDescription(item, finalDescription)}
           <button class="delete-button" type="button" data-delete-portfolio="${item.id}">삭제</button>
