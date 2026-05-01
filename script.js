@@ -505,7 +505,13 @@ function renderPortfolio() {
     return;
   }
 
-  portfolioList.innerHTML = portfolioItems
+  const reviewPanelMarkup = `
+    <aside class="portfolio-review-panel" aria-label="수강생 후기가 증명하는 AI 활용 수업 강좌">
+      <img src="assets/ai-class-review-banner.png" alt="많은 선생님이 선택한 AI 활용 수업 강좌 수강생 후기 이미지" />
+    </aside>
+  `;
+
+  portfolioList.innerHTML = reviewPanelMarkup + portfolioItems
     .map((item, index) => {
       const number = String(index + 1).padStart(2, "0");
       const description = item.description

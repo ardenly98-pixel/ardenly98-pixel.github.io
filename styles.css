@@ -366,8 +366,29 @@ h1 {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: minmax(260px, 0.95fr) repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(220px, auto));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.portfolio-review-panel {
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 4px 12px 4px 0;
+}
+
+.portfolio-review-panel img {
+  display: block;
+  width: min(100%, 430px);
+  max-height: 100%;
+  object-fit: contain;
+  border: 0;
+  border-radius: 14px;
+  filter: drop-shadow(0 16px 24px rgba(18, 38, 35, 0.1));
 }
 
 .portfolio-card {
@@ -736,6 +757,17 @@ footer p {
 
   .portfolio-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+  }
+
+  .portfolio-review-panel {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    padding: 0 0 6px;
+  }
+
+  .portfolio-review-panel img {
+    width: min(100%, 520px);
   }
 
   .contact-methods {
@@ -821,6 +853,15 @@ footer p {
   .profile-card,
   .share-item {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-review-panel {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .portfolio-review-panel img {
+    width: min(100%, 360px);
   }
 
   .profile-card {
