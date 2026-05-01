@@ -2,13 +2,13 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050109";
+const postsJsonPath = "posts.json?v=2026050110";
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
   {
     id: "default-project-ai",
-    title: "프로젝트 학습 기반 AI 수업",
+    title: "AI 활용 프로젝트 수업",
     description:
       "- 학급 뮤직비디오 만들기\n- 나만의 동화책 만들기",
   },
@@ -20,9 +20,9 @@ const defaultPortfolioItems = [
   },
   {
     id: "default-generative-ai",
-    title: "생성형 AI 활용",
+    title: "생성형 AI 활용 방법 및 윤리교육",
     description:
-      "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발",
+      "- 절차적 사고를 함양하는 똑똑한 AI 명령 방법 : 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발\n- 생성형 AI를 활용하는 미래 시민 태도(윤리 교육)",
   },
   {
     id: "default-highlearning",
@@ -155,10 +155,11 @@ function removeLinklessDefaultPdfItem(items) {
 
 function normalizePortfolioItems(items) {
   return items.map((item) => {
-    if (item.title === "프로젝트 학습 기반 AI 수업") {
+    if (item.title === "프로젝트 학습 기반 AI 수업" || item.title === "AI 활용 프로젝트 수업") {
       return {
         ...item,
         id: "default-project-ai",
+        title: "AI 활용 프로젝트 수업",
         description:
           "- 학급 뮤직비디오 만들기\n- 나만의 동화책 만들기",
       };
@@ -176,12 +177,13 @@ function normalizePortfolioItems(items) {
       };
     }
 
-    if (item.title === "생성형 AI 활용") {
+    if (item.title === "생성형 AI 활용" || item.title === "생성형 AI 활용 방법 및 윤리교육") {
       return {
         ...item,
         id: "default-generative-ai",
+        title: "생성형 AI 활용 방법 및 윤리교육",
         description:
-          "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발",
+          "- 절차적 사고를 함양하는 똑똑한 AI 명령 방법 : 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발\n- 생성형 AI를 활용하는 미래 시민 태도(윤리 교육)",
       };
     }
 
@@ -253,7 +255,7 @@ function renderToolTags(labels = []) {
 }
 
 function renderPortfolioDescription(item, description) {
-  if (item.id === "default-project-ai" || item.title === "프로젝트 학습 기반 AI 수업") {
+  if (item.id === "default-project-ai" || item.title === "AI 활용 프로젝트 수업" || item.title === "프로젝트 학습 기반 AI 수업") {
     return `
       <div class="portfolio-list">
         <p>- 학급 뮤직비디오 만들기</p>
@@ -271,12 +273,13 @@ function renderPortfolioDescription(item, description) {
     `;
   }
 
-  if (item.id === "default-generative-ai" || item.title === "생성형 AI 활용") {
+  if (item.id === "default-generative-ai" || item.title === "생성형 AI 활용 방법 및 윤리교육" || item.title === "생성형 AI 활용") {
     return `
       <div class="portfolio-list">
-        <p>- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링</p>
+        <p>- 절차적 사고를 함양하는 똑똑한 AI 명령 방법 : 프롬프트 엔지니어링</p>
         <p>- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등</p>
         <p>- 바이브코딩을 활용한 웹디자인, 프로그램 개발</p>
+        <p>- 생성형 AI를 활용하는 미래 시민 태도(윤리 교육)</p>
       </div>
     `;
   }
@@ -510,8 +513,8 @@ function renderPortfolio() {
         .replaceAll("AI로 학교 맞춤형", "AI활용 학교 맞춤형")
         .replaceAll("제미나이, 노트북LM, 캔바 등 생성형 AI 활용 강의", "제미나이, 캔바 등 생성형 AI 활용 강의");
       const finalDescription =
-        item.id === "default-generative-ai" || item.title === "생성형 AI 활용"
-          ? "- AI와의 대화 : 절차적 사고를 함양하는 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발"
+        item.id === "default-generative-ai" || item.title === "생성형 AI 활용 방법 및 윤리교육" || item.title === "생성형 AI 활용"
+          ? "- 절차적 사고를 함양하는 똑똑한 AI 명령 방법 : 프롬프트 엔지니어링\n- 생성형 AI 활용 강의 : 제미나이, 캔바, SUNO 등\n- 바이브코딩을 활용한 웹디자인, 프로그램 개발\n- 생성형 AI를 활용하는 미래 시민 태도(윤리 교육)"
           : description;
       const title =
         item.id === "default-automation"
