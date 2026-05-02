@@ -556,7 +556,7 @@ function renderShares() {
   shareList.innerHTML = visibleShareItems
     .map((item) => {
       const linkMarkup = item.url
-        ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(item.title)} 링크 보기">링크</a>`
+        ? `<span class="share-link-button" aria-hidden="true">🌐↗</span>`
         : "";
       const fileMarkup = item.file?.dataUrl
         ? `<a href="${item.file.dataUrl}" download="${escapeHtml(item.file.name)}" aria-label="${escapeHtml(item.title)} 첨부파일 받기">첨부</a>`
@@ -564,8 +564,7 @@ function renderShares() {
           ? `<button class="file-button" type="button" data-download-file="${item.file.id}" aria-label="${escapeHtml(item.title)} 첨부파일 받기">첨부</button>`
         : "";
 
-      return `
-        <article class="share-item">
+      const shareContent = `
           <div>
             <span class="tag">${escapeHtml(item.category)}</span>
             <h3>${escapeHtml(item.title)}</h3>
@@ -575,6 +574,20 @@ function renderShares() {
             ${linkMarkup}
             ${fileMarkup}
           </div>
+      `;
+
+      if (item.url) {
+        return `
+          <a class="share-item share-link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} 자료 다운로드 사이트로 이동">
+            ${shareContent}
+            <span class="sr-only">자료 다운로드 사이트로 이동</span>
+          </a>
+        `;
+      }
+
+      return `
+        <article class="share-item">
+          ${shareContent}
         </article>
       `;
     })

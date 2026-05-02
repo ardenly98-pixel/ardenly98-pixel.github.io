@@ -512,13 +512,18 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .history-link-card,
   .history-link-card::after,
-  .history-link-icon {
+  .history-link-icon,
+  .share-link-card,
+  .share-link-card::after,
+  .share-link-button {
     animation: none !important;
     transition: none !important;
   }
 
   .history-link-card:hover,
-  .history-link-card:focus-visible {
+  .history-link-card:focus-visible,
+  .share-link-card:hover,
+  .share-link-card:focus-visible {
     transform: none;
   }
 }
@@ -848,11 +853,99 @@ body.is-admin .delete-button {
 }
 
 .share-item {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 16px;
   align-items: center;
   padding: 16px 18px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.share-link-card {
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    background 0.24s ease,
+    border-color 0.24s ease;
+}
+
+.share-link-card::after {
+  content: "자료 다운로드 사이트로 이동 ↗";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0 18px;
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.94);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+  pointer-events: none;
+}
+
+.share-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(25, 111, 114, 0.22);
+  border-radius: 999px;
+  color: var(--teal);
+  background: rgba(235, 249, 245, 0.92);
+  box-shadow: 0 3px 9px rgba(18, 38, 35, 0.08);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  animation: softPulse 5.2s ease-in-out infinite;
+}
+
+.share-link-card:focus-visible {
+  outline: 3px solid rgba(25, 111, 114, 0.22);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .share-link-card:hover,
+  .share-link-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(25, 111, 114, 0.2);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 10px 24px rgba(18, 38, 35, 0.11);
+  }
+
+  .share-link-card:hover > div,
+  .share-link-card:focus-visible > div {
+    opacity: 0.12;
+  }
+
+  .share-link-card:hover::after,
+  .share-link-card:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .share-link-card::after {
+    display: none;
+  }
+
+  .share-link-card:active {
+    transform: translateY(1px);
+    background: rgba(246, 252, 249, 0.98);
+  }
 }
 
 .share-item.is-hidden {
