@@ -396,14 +396,27 @@ h1 {
   align-items: center;
   justify-content: center;
   justify-self: end;
+  min-width: 42px;
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid rgba(25, 111, 114, 0.22);
+  border-radius: 999px;
+  background: rgba(235, 249, 245, 0.92);
+  box-shadow: 0 3px 9px rgba(18, 38, 35, 0.08);
   color: var(--teal);
-  font-size: 17px;
+  font-size: 13px;
+  font-weight: 900;
   line-height: 1;
-  opacity: 0.72;
+  opacity: 1;
+  animation: softPulse 5.2s ease-in-out infinite;
+}
+
+.history-icon-desktop {
+  display: none;
 }
 
 .history-icon-mobile {
-  display: none;
+  display: inline;
 }
 
 .history-link-card::after {
@@ -465,25 +478,7 @@ h1 {
   }
 
   .history-link-icon {
-    min-width: 42px;
-    min-height: 30px;
-    padding: 0 9px;
-    border: 1px solid rgba(25, 111, 114, 0.22);
-    border-radius: 999px;
-    background: rgba(235, 249, 245, 0.92);
-    box-shadow: 0 3px 9px rgba(18, 38, 35, 0.08);
-    font-size: 13px;
-    font-weight: 900;
-    opacity: 1;
     animation: softPulse 5.2s ease-in-out infinite;
-  }
-
-  .history-icon-desktop {
-    display: none;
-  }
-
-  .history-icon-mobile {
-    display: inline;
   }
 
   .history-link-card:active {
