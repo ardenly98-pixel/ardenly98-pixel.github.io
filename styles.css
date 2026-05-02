@@ -874,7 +874,7 @@ body.is-admin .delete-button {
 }
 
 .share-link-card::after {
-  content: "자료 다운로드 사이트로 이동 ↗";
+  content: "다운로드 ↗";
   position: absolute;
   inset: 0;
   display: grid;

@@ -578,9 +578,9 @@ function renderShares() {
 
       if (item.url) {
         return `
-          <a class="share-item share-link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} 자료 다운로드 사이트로 이동">
+          <a class="share-item share-link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} 다운로드">
             ${shareContent}
-            <span class="sr-only">자료 다운로드 사이트로 이동</span>
+            <span class="sr-only">다운로드</span>
           </a>
         `;
       }
