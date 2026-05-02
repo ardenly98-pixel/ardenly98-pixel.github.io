@@ -420,7 +420,7 @@ h1 {
 }
 
 .history-link-card::after {
-  content: "강의 수강 신청 사이트로 이동 ↗";
+  content: "지식샘터 강의 보러가기 ↗";
   position: absolute;
   inset: 0;
   display: grid;
