@@ -343,14 +343,29 @@ h1 {
   align-content: stretch;
 }
 
-.history-list div {
+.history-list div,
+.history-list a {
+  position: relative;
   display: grid;
-  grid-template-columns: 128px 1fr;
+  grid-template-columns: 128px minmax(0, 1fr) auto;
   gap: 14px;
+  align-items: center;
   padding: 10px 14px;
   border-left: 4px solid var(--mint);
   background: white;
   min-height: 47px;
+}
+
+.history-link-card {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease;
 }
 
 .history-list span {
@@ -362,6 +377,106 @@ h1 {
 .history-list p {
   margin-bottom: 0;
   line-height: 1.48;
+}
+
+.history-link-icon {
+  justify-self: end;
+  color: var(--teal);
+  font-size: 17px;
+  line-height: 1;
+  opacity: 0.72;
+}
+
+.history-link-card::after {
+  content: "강의 수강 신청 사이트로 이동 ↗";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0 18px;
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.94);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+  pointer-events: none;
+}
+
+.history-link-card:focus-visible {
+  outline: 3px solid rgba(25, 111, 114, 0.22);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .history-link-card:hover,
+  .history-link-card:focus-visible {
+    transform: translateY(-2px);
+    border-left-color: var(--teal);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 10px 24px rgba(18, 38, 35, 0.11);
+  }
+
+  .history-link-card:hover > span:not(.history-link-icon),
+  .history-link-card:hover > p,
+  .history-link-card:hover .history-link-icon,
+  .history-link-card:focus-visible > span:not(.history-link-icon),
+  .history-link-card:focus-visible > p,
+  .history-link-card:focus-visible .history-link-icon {
+    opacity: 0.12;
+  }
+
+  .history-link-card:hover::after,
+  .history-link-card:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .history-link-card::after {
+    display: none;
+  }
+
+  .history-link-icon {
+    animation: softPulse 5.2s ease-in-out infinite;
+  }
+}
+
+@keyframes softPulse {
+  0%,
+  72%,
+  100% {
+    opacity: 0.62;
+    transform: scale(1);
+  }
+
+  78% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+
+  84% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-link-card,
+  .history-link-card::after,
+  .history-link-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .history-link-card:hover,
+  .history-link-card:focus-visible {
+    transform: none;
+  }
 }
 
 .portfolio-grid {
@@ -850,8 +965,9 @@ footer p {
     padding-top: 30px;
   }
 
-  .history-list div {
-    grid-template-columns: 112px minmax(0, 1fr);
+  .history-list div,
+  .history-list a {
+    grid-template-columns: 112px minmax(0, 1fr) auto;
     gap: 10px;
     padding: 10px 12px;
   }
