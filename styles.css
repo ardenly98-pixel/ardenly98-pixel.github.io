@@ -853,7 +853,7 @@ body.is-admin .delete-button {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: -18px 0 18px;
+  margin: 18px 0 9px;
 }
 
 .share-board-tabs button,
@@ -918,7 +918,7 @@ body.is-admin .delete-button {
 }
 
 .share-link-card::after {
-  content: "다운로드 ↗";
+  content: attr(data-hover-label);
   position: absolute;
   inset: 0;
   display: grid;
@@ -1288,7 +1288,7 @@ footer p {
 
   .share-board-tabs {
     gap: 6px;
-    margin-top: -8px;
+    margin: 14px 0 8px;
   }
 
   .share-board-tabs button {

@@ -615,10 +615,11 @@ function renderShares() {
       `;
 
       if (item.url) {
+        const linkActionLabel = item.board === "GPT/GEMS" ? "이동" : "다운로드";
         return `
-          <a class="share-item share-link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} 다운로드">
+          <a class="share-item share-link-card" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} ${linkActionLabel}" data-hover-label="${linkActionLabel} ↗">
             ${shareContent}
-            <span class="sr-only">다운로드</span>
+            <span class="sr-only">${linkActionLabel}</span>
           </a>
         `;
       }
