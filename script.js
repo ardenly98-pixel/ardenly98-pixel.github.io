@@ -2,7 +2,9 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050111";
+const postsJsonPath = "posts.json?v=2026050301";
+const shareBoardNames = ["전체", "앱/도구", "GPT/GEMS", "활동지"];
+const shareItemsPerPage = 3;
 const fileDatabaseName = "sanggeunBoardFiles";
 const fileStoreName = "files";
 const defaultPortfolioItems = [
@@ -35,6 +37,7 @@ const defaultShareItems = [];
 const fallbackJsonShareItems = [
   {
     id: "pdf-topic-splitter",
+    board: "앱/도구",
     category: "노트북LM",
     title: "「PDF 자동 분할기」",
     description:
@@ -45,6 +48,7 @@ const fallbackJsonShareItems = [
   },
   {
     id: "highlearning-writing-rubric",
+    board: "GPT/GEMS",
     category: "하이러닝",
     title: "「맞춤형 초등 글쓰기 지도 루브릭 생성기」",
     description:
@@ -55,6 +59,7 @@ const fallbackJsonShareItems = [
   },
   {
     id: "batch-document-pdf-converter",
+    board: "앱/도구",
     category: "노트북LM",
     title: "「문서일괄 PDF 변환기」",
     description:
@@ -63,10 +68,23 @@ const fallbackJsonShareItems = [
     file: null,
     source: "json",
   },
+  {
+    id: "class-music-video-worksheet",
+    board: "활동지",
+    category: "프로젝트 학습",
+    title: "학급 뮤직비디오 만들기 활동지",
+    description:
+      "Suno AI로 우리 반 노래를 만들고, 완성된 노래를 바탕으로 뮤직비디오 장면까지 계획해 보는 프로젝트형 활동지입니다.",
+    url: "https://drive.google.com/drive/folders/14U2Hqb34BpZwkjOBpAXPILf3gupZ3yCx?usp=sharing",
+    file: null,
+    source: "json",
+  },
 ];
 
 const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
+const shareBoardTabs = document.querySelector("#shareBoardTabs");
+const sharePagination = document.querySelector("#sharePagination");
 const adminOpenButtons = Array.from(document.querySelectorAll("[data-admin-open]"));
 const adminModal = document.querySelector("#adminModal");
 const adminForm = document.querySelector("#adminForm");
@@ -91,6 +109,8 @@ let editingPostId = null;
 let portfolioItems = defaultPortfolioItems.map((item) => ({ ...item }));
 let shareItems = [];
 let jsonShareItems = [];
+let activeShareBoard = "전체";
+let activeSharePage = 1;
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
 portfolioItems = normalizePortfolioItems(portfolioItems);
 portfolioItems = dedupePortfolioItems(portfolioItems);
@@ -110,6 +130,7 @@ async function loadJsonPosts() {
     const posts = await response.json();
     jsonShareItems = posts.map((post, index) => ({
       id: post.id ?? `json-post-${index}`,
+      board: post.board ?? inferShareBoard(post.category ?? ""),
       category: post.category ?? "자료",
       title: post.title ?? "제목 없음",
       description: post.description ?? "",
@@ -123,6 +144,13 @@ async function loadJsonPosts() {
     jsonShareItems = fallbackJsonShareItems;
     renderShares();
   }
+}
+
+function inferShareBoard(category = "") {
+  if (category === "노트북LM") return "앱/도구";
+  if (category === "하이러닝") return "GPT/GEMS";
+  if (category === "프로젝트 학습") return "활동지";
+  return "앱/도구";
 }
 
 function mergeDefaultPortfolioItems(items, deletedIds = []) {
@@ -546,7 +574,17 @@ function renderPortfolio() {
 }
 
 function renderShares() {
-  const visibleShareItems = jsonShareItems;
+  const filteredShareItems =
+    activeShareBoard === "전체"
+      ? jsonShareItems
+      : jsonShareItems.filter((item) => item.board === activeShareBoard);
+  const totalPages = Math.max(1, Math.ceil(filteredShareItems.length / shareItemsPerPage));
+  activeSharePage = Math.min(activeSharePage, totalPages);
+  const pageStart = (activeSharePage - 1) * shareItemsPerPage;
+  const visibleShareItems = filteredShareItems.slice(pageStart, pageStart + shareItemsPerPage);
+
+  renderShareTabs();
+  renderSharePagination(totalPages, filteredShareItems.length);
 
   if (visibleShareItems.length === 0) {
     shareList.innerHTML = '<p class="empty-state">등록된 무료 공유 자료가 없습니다.</p>';
@@ -594,8 +632,55 @@ function renderShares() {
     .join("");
 }
 
+function renderShareTabs() {
+  if (!shareBoardTabs) return;
+
+  shareBoardTabs.innerHTML = shareBoardNames
+    .map(
+      (board) => `
+        <button class="${board === activeShareBoard ? "is-active" : ""}" type="button" data-share-board="${board}" role="tab" aria-selected="${board === activeShareBoard ? "true" : "false"}">
+          ${board}
+        </button>
+      `,
+    )
+    .join("");
+}
+
+function renderSharePagination(totalPages, itemCount) {
+  if (!sharePagination) return;
+
+  if (totalPages <= 1 || itemCount === 0) {
+    sharePagination.innerHTML = "";
+    return;
+  }
+
+  sharePagination.innerHTML = Array.from({ length: totalPages }, (_, index) => {
+    const page = index + 1;
+    return `<button class="${page === activeSharePage ? "is-active" : ""}" type="button" data-share-page="${page}" aria-label="${page}페이지 보기" aria-current="${page === activeSharePage ? "page" : "false"}">${page}</button>`;
+  }).join("");
+}
+
 adminOpenButtons.forEach((button) => {
   button.addEventListener("click", () => openAdminModal(button.dataset.adminOpen));
+});
+
+shareBoardTabs?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-share-board]");
+
+  if (!button) return;
+
+  activeShareBoard = button.dataset.shareBoard;
+  activeSharePage = 1;
+  renderShares();
+});
+
+sharePagination?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-share-page]");
+
+  if (!button) return;
+
+  activeSharePage = Number(button.dataset.sharePage);
+  renderShares();
 });
 
 passwordConfirm?.addEventListener("click", unlockEditor);

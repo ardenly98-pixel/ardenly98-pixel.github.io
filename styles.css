@@ -849,6 +849,48 @@ body.is-admin .delete-button {
   background: #eef5f1;
 }
 
+.share-board-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -18px 0 18px;
+}
+
+.share-board-tabs button,
+.share-pagination button {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid rgba(25, 111, 114, 0.18);
+  border-radius: 999px;
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.share-board-tabs button:hover,
+.share-board-tabs button:focus-visible,
+.share-pagination button:hover,
+.share-pagination button:focus-visible {
+  border-color: rgba(25, 111, 114, 0.36);
+  background: rgba(235, 249, 245, 0.95);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.share-board-tabs button.is-active,
+.share-pagination button.is-active {
+  color: white;
+  border-color: var(--teal);
+  background: var(--teal);
+}
+
 .share-list {
   display: grid;
   gap: 7px;
@@ -952,6 +994,18 @@ body.is-admin .delete-button {
 
 .share-item.is-hidden {
   display: none;
+}
+
+.share-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.share-pagination button {
+  min-width: 38px;
+  padding: 0 12px;
 }
 
 .tag {
@@ -1230,6 +1284,17 @@ footer p {
   .share-item a,
   .file-button {
     width: 100%;
+  }
+
+  .share-board-tabs {
+    gap: 6px;
+    margin-top: -8px;
+  }
+
+  .share-board-tabs button {
+    flex: 1 1 calc(50% - 6px);
+    padding: 0 10px;
+    font-size: 13px;
   }
 
   .admin-toggle {

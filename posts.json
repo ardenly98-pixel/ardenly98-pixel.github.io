@@ -1,6 +1,7 @@
 [
   {
     "id": "pdf-topic-splitter",
+    "board": "앱/도구",
     "category": "노트북LM",
     "title": "「PDF 자동 분할기」",
     "description": "30페이지 이상의 PDF를 주제와 맥락에 따라 자동으로 나누어, 노트북LM에서 더 잘 인식되는 30페이지 이하 파일로 분할해주는 프로그램입니다.",
@@ -8,6 +9,7 @@
   },
   {
     "id": "highlearning-writing-rubric",
+    "board": "GPT/GEMS",
     "category": "하이러닝",
     "title": "「맞춤형 초등 글쓰기 지도 루브릭 생성기」",
     "description": "학생들의 글쓰기 과제물에 대해 체계적이고 구체적인 피드백을 제공할 수 있도록, 하이러닝 서·논술형 평가 기능에서 활용 가능한 맞춤형 루브릭을 자동으로 생성해주는 GPT입니다.",
@@ -15,9 +17,18 @@
   },
   {
     "id": "batch-document-pdf-converter",
+    "board": "앱/도구",
     "category": "노트북LM",
     "title": "「문서일괄 PDF 변환기」",
     "description": "한글(HWP/HWPX), 워드, 엑셀, 파워포인트 등 여러 문서 파일을 한 번에 PDF로 변환해주는 프로그램입니다.\n※ 변환 중에는 다른 창을 클릭하지 말고 잠시 기다려야 합니다. 일부 문서 형식은 한컴오피스 또는 LibreOffice 설치가 필요할 수 있습니다.",
     "link": "https://drive.google.com/drive/folders/1OHxP7_t46k3qbHOUnBz8bA0-FijJ_od2?usp=drive_link"
+  },
+  {
+    "id": "class-music-video-worksheet",
+    "board": "활동지",
+    "category": "프로젝트 학습",
+    "title": "학급 뮤직비디오 만들기 활동지",
+    "description": "Suno AI로 우리 반 노래를 만들고, 완성된 노래를 바탕으로 뮤직비디오 장면까지 계획해 보는 프로젝트형 활동지입니다.",
+    "link": "https://drive.google.com/drive/folders/14U2Hqb34BpZwkjOBpAXPILf3gupZ3yCx?usp=sharing"
   }
 ]
