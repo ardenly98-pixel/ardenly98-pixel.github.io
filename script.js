@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050301";
+const postsJsonPath = "posts.json?v=2026050302";
 const shareBoardNames = ["전체", "앱/도구", "GPT/GEMS", "활동지"];
 const shareItemsPerPage = 3;
 const fileDatabaseName = "sanggeunBoardFiles";
@@ -76,6 +76,17 @@ const fallbackJsonShareItems = [
     description:
       "Suno AI로 우리 반 노래를 만들고, 완성된 노래를 바탕으로 뮤직비디오 장면까지 계획해 보는 프로젝트형 활동지입니다.",
     url: "https://drive.google.com/drive/folders/14U2Hqb34BpZwkjOBpAXPILf3gupZ3yCx?usp=sharing",
+    file: null,
+    source: "json",
+  },
+  {
+    id: "storybook-worksheet",
+    board: "활동지",
+    category: "프로젝트 학습",
+    title: "나만의 동화책 만들기 활동지",
+    description:
+      "제미나이, Whisk, 캔바를 활용해 학생들이 직접 이야기를 만들고, 장면별 그림을 생성하여 나만의 동화책으로 완성하는 프로젝트형 활동 자료입니다.",
+    url: "https://drive.google.com/drive/folders/126Z1jkO67HeAVcLEwrE_NhqnuIr9e82E?usp=sharing",
     file: null,
     source: "json",
   },
