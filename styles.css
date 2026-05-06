@@ -594,6 +594,25 @@ h1 {
   }
 }
 
+@keyframes softBorderPulse {
+  0%,
+  72%,
+  100% {
+    border-color: rgba(25, 111, 114, 0.22);
+    box-shadow: 0 3px 9px rgba(18, 38, 35, 0.08);
+  }
+
+  78% {
+    border-color: rgba(25, 111, 114, 0.42);
+    box-shadow: 0 4px 12px rgba(18, 38, 35, 0.12);
+  }
+
+  84% {
+    border-color: rgba(25, 111, 114, 0.28);
+    box-shadow: 0 3px 9px rgba(18, 38, 35, 0.08);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .history-link-card,
   .history-link-card::after,
@@ -1248,20 +1267,37 @@ footer p {
   }
 
   .history-list div,
-  .history-list a {
-    grid-template-columns: 112px minmax(0, 1fr) auto;
-    gap: 10px;
+  .history-list a,
+  .history-list button {
+    grid-template-columns: 98px minmax(0, 1fr);
+    gap: 8px;
     padding: 10px 12px;
   }
 
   .history-list span {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .history-list p {
     line-height: 1.55;
     word-break: keep-all;
     overflow-wrap: normal;
+  }
+
+  .history-link-card {
+    padding-right: 58px;
+  }
+
+  .history-link-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    min-width: 38px;
+    min-height: 28px;
+    padding: 0 8px;
+    font-size: 12px;
+    transform: translateY(-50%);
+    animation: softBorderPulse 5.2s ease-in-out infinite;
   }
 
   .portfolio-grid,
