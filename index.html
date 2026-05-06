@@ -37,7 +37,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="styles.css?v=2026050309" />
+    <link rel="stylesheet" href="styles.css?v=2026050601" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -106,14 +106,32 @@
             <h3>강사 김상근</h3>
           </article>
           <div class="history-list">
-            <div>
+            <button
+              class="history-link-card history-profile-card"
+              type="button"
+              data-profile-image="assets/profile1.png"
+              data-profile-alt="교사가 이끄는 교실혁명 멘토 교원 명함"
+              data-hover-label="관련 명함 보기 ↗"
+              aria-label="교사가 이끄는 교실혁명 멘토 교원 관련 명함 보기"
+            >
               <span>교육부</span>
               <p>교사가 이끄는 교실혁명 멘토 교원</p>
-            </div>
-            <div>
+              <span class="history-link-icon" aria-hidden="true">🪪↗</span>
+              <span class="sr-only">관련 명함 보기</span>
+            </button>
+            <button
+              class="history-link-card history-profile-card"
+              type="button"
+              data-profile-image="assets/profile2.png"
+              data-profile-alt="디지털 수업혁신 터치교사단 명함"
+              data-hover-label="관련 명함 보기 ↗"
+              aria-label="디지털 수업혁신 터치교사단 관련 명함 보기"
+            >
               <span>교육부</span>
               <p>디지털 수업혁신 터치교사단</p>
-            </div>
+              <span class="history-link-icon" aria-hidden="true">🪪↗</span>
+              <span class="sr-only">관련 명함 보기</span>
+            </button>
             <div>
               <span>경기도교육청</span>
               <p>AIDT 적용 실행 학습 연수 강사</p>
@@ -136,6 +154,7 @@
               target="_blank"
               rel="noopener noreferrer"
               aria-label="한국교육학술정보원 디지털 지식샘터 강의 보러가기"
+              data-hover-label="지식샘터 강의 보러가기 ↗"
             >
               <span>KERIS</span>
               <p>한국교육학술정보원 디지털 지식샘터 강사</p>
@@ -329,6 +348,13 @@
       </div>
     </div>
 
+    <div class="profile-image-backdrop" id="profileImageModal" hidden>
+      <div class="profile-image-dialog" role="dialog" aria-modal="true" aria-label="관련 명함 이미지">
+        <button class="profile-image-close" type="button" id="profileImageClose" aria-label="명함 이미지 닫기">×</button>
+        <img id="profileImagePreview" src="" alt="" />
+      </div>
+    </div>
+
     <script>
       (() => {
         const portfolioKey = "sanggeunPortfolioItems";
@@ -380,6 +406,6 @@
         }
       })();
     </script>
-    <script src="script.js?v=2026050303"></script>
+    <script src="script.js?v=2026050601"></script>
   </body>
 </html>

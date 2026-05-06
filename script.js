@@ -96,6 +96,10 @@ const portfolioList = document.querySelector("#portfolioList");
 const shareList = document.querySelector("#shareList");
 const shareBoardTabs = document.querySelector("#shareBoardTabs");
 const sharePagination = document.querySelector("#sharePagination");
+const profileImageButtons = Array.from(document.querySelectorAll("[data-profile-image]"));
+const profileImageModal = document.querySelector("#profileImageModal");
+const profileImagePreview = document.querySelector("#profileImagePreview");
+const profileImageClose = document.querySelector("#profileImageClose");
 const adminOpenButtons = Array.from(document.querySelectorAll("[data-admin-open]"));
 const adminModal = document.querySelector("#adminModal");
 const adminForm = document.querySelector("#adminForm");
@@ -122,6 +126,7 @@ let shareItems = [];
 let jsonShareItems = [];
 let activeShareBoard = "전체";
 let activeSharePage = 1;
+let profileImageCloseTimer = null;
 let deletedDefaultPortfolioIds = readItems(deletedDefaultPortfolioStorageKey);
 portfolioItems = normalizePortfolioItems(portfolioItems);
 portfolioItems = dedupePortfolioItems(portfolioItems);
@@ -672,6 +677,46 @@ function renderSharePagination(totalPages, itemCount) {
   }).join("");
 }
 
+function openProfileImageModal(button) {
+  if (!profileImageModal || !profileImagePreview) return;
+
+  window.clearTimeout(profileImageCloseTimer);
+  profileImagePreview.src = button.dataset.profileImage;
+  profileImagePreview.alt = button.dataset.profileAlt ?? "관련 명함 이미지";
+  profileImageModal.hidden = false;
+
+  requestAnimationFrame(() => {
+    profileImageModal.classList.add("is-open");
+  });
+}
+
+function closeProfileImageModal() {
+  if (!profileImageModal || profileImageModal.hidden) return;
+
+  profileImageModal.classList.remove("is-open");
+  window.clearTimeout(profileImageCloseTimer);
+  profileImageCloseTimer = window.setTimeout(() => {
+    profileImageModal.hidden = true;
+
+    if (profileImagePreview) {
+      profileImagePreview.removeAttribute("src");
+      profileImagePreview.alt = "";
+    }
+  }, 260);
+}
+
+profileImageButtons.forEach((button) => {
+  button.addEventListener("click", () => openProfileImageModal(button));
+});
+
+profileImageClose?.addEventListener("click", closeProfileImageModal);
+
+profileImageModal?.addEventListener("click", (event) => {
+  if (event.target === profileImageModal) {
+    closeProfileImageModal();
+  }
+});
+
 adminOpenButtons.forEach((button) => {
   button.addEventListener("click", () => openAdminModal(button.dataset.adminOpen));
 });
@@ -763,6 +808,12 @@ modalClose?.addEventListener("click", closeAdminModal);
 adminModal?.addEventListener("click", (event) => {
   if (event.target === adminModal) {
     closeAdminModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeProfileImageModal();
   }
 });
 

@@ -356,15 +356,21 @@ h1 {
 }
 
 .history-list div,
-.history-list a {
+.history-list a,
+.history-list button {
   position: relative;
   display: grid;
   grid-template-columns: 128px minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
+  width: 100%;
   padding: 10px 14px;
+  border: 0;
   border-left: 4px solid var(--mint);
   background: white;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   min-height: 47px;
 }
 
@@ -420,7 +426,7 @@ h1 {
 }
 
 .history-link-card::after {
-  content: "지식샘터 강의 보러가기 ↗";
+  content: attr(data-hover-label);
   position: absolute;
   inset: 0;
   display: grid;
@@ -436,6 +442,85 @@ h1 {
     opacity 0.24s ease,
     transform 0.24s ease;
   pointer-events: none;
+}
+
+.profile-image-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(18, 31, 29, 0.34);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+
+.profile-image-backdrop[hidden] {
+  display: none;
+}
+
+.profile-image-backdrop.is-open {
+  opacity: 1;
+}
+
+.profile-image-dialog {
+  position: relative;
+  width: min(82vw, 560px);
+  max-height: min(78vh, 720px);
+  display: grid;
+  place-items: center;
+  transform: translateY(14px) scale(0.96);
+  opacity: 0;
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s ease;
+}
+
+.profile-image-backdrop.is-open .profile-image-dialog {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.profile-image-dialog img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: min(72vh, 660px);
+  border-radius: 8px;
+  box-shadow: 0 22px 54px rgba(18, 38, 35, 0.24);
+}
+
+.profile-image-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(25, 111, 114, 0.18);
+  border-radius: 999px;
+  color: var(--teal);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 20px rgba(18, 38, 35, 0.14);
+  font: inherit;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.profile-image-close:hover,
+.profile-image-close:focus-visible {
+  background: #f4fbf8;
+  transform: translateY(-1px);
+  outline: none;
 }
 
 .history-link-card:focus-visible {
@@ -513,6 +598,8 @@ h1 {
   .history-link-card,
   .history-link-card::after,
   .history-link-icon,
+  .profile-image-backdrop,
+  .profile-image-dialog,
   .share-link-card,
   .share-link-card::after,
   .share-link-button {
