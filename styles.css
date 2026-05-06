@@ -397,6 +397,10 @@ h1 {
   line-height: 1.48;
 }
 
+.career-mobile-break {
+  display: inline;
+}
+
 .history-link-icon {
   display: inline-flex;
   align-items: center;
@@ -1269,13 +1273,13 @@ footer p {
   .history-list div,
   .history-list a,
   .history-list button {
-    grid-template-columns: 98px minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 7px;
     padding: 10px 12px;
   }
 
   .history-list span {
-    font-size: 13px;
+    font-size: 12.5px;
   }
 
   .history-list p {
@@ -1285,7 +1289,7 @@ footer p {
   }
 
   .history-link-card {
-    padding-right: 58px;
+    padding-right: 72px;
   }
 
   .history-link-icon {
@@ -1298,6 +1302,10 @@ footer p {
     font-size: 12px;
     transform: translateY(-50%);
     animation: softBorderPulse 5.2s ease-in-out infinite;
+  }
+
+  .career-mobile-break {
+    display: block;
   }
 
   .portfolio-grid,
