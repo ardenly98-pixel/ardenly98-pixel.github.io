@@ -401,6 +401,13 @@ h1 {
   display: inline;
 }
 
+.history-list p .career-mobile-break {
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  white-space: normal;
+}
+
 .history-link-icon {
   display: inline-flex;
   align-items: center;
@@ -1306,6 +1313,10 @@ footer p {
 
   .career-mobile-break {
     display: block;
+  }
+
+  .career-keep-line {
+    white-space: nowrap;
   }
 
   .portfolio-grid,
