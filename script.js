@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050302";
+const postsJsonPath = "posts.json?v=2026050601";
 const shareBoardNames = ["전체", "앱/도구", "GPT/GEMS", "활동지"];
 const shareItemsPerPage = 3;
 const fileDatabaseName = "sanggeunBoardFiles";
@@ -49,11 +49,22 @@ const fallbackJsonShareItems = [
   {
     id: "highlearning-writing-rubric",
     board: "GPT/GEMS",
-    category: "하이러닝",
-    title: "「맞춤형 초등 글쓰기 지도 루브릭 생성기」",
+    category: "하이러닝 AI 서논술형 평가",
+    title: "「하이러닝 AI 서논술형 평가」 맞춤형 초등 글쓰기 지도 루브릭 생성기",
     description:
       "학생들의 글쓰기 과제물에 대해 체계적이고 구체적인 피드백을 제공할 수 있도록, 하이러닝 서·논술형 평가 기능에서 활용 가능한 맞춤형 루브릭을 자동으로 생성해주는 GPT입니다.",
     url: "https://chatgpt.com/g/g-69eb8a4720e4819185c277b83c97bedc-haireoning-ai-seononsulhyeong-pyeongga-majcumhyeong-codeung-geulsseugi-jido-rubeurig-saengseonggi",
+    file: null,
+    source: "json",
+  },
+  {
+    id: "ggumitda-career-counselor",
+    board: "GPT/GEMS",
+    category: "꿈IT다",
+    title: "「꿈IT다」 대한민국 초·중·고 진로상담 전문가",
+    description:
+      "학생의 진로심리검사 결과와 진로상담 게시글을 바탕으로 학년군 수준에 맞는 실질적이고 따뜻한 진로상담 답변을 생성해주는 GPT입니다.",
+    url: "https://chatgpt.com/g/g-69fad781a7f881919f324aafa31fb71a-ggumitda-daehanmingug-co-jung-go-jinrosangdam-jeonmunga",
     file: null,
     source: "json",
   },
