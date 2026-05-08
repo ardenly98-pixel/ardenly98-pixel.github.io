@@ -187,6 +187,25 @@ h1 {
   margin-top: 24px;
 }
 
+.contact-methods .kakao-contact {
+  gap: 10px;
+  padding-left: 9px;
+}
+
+.kakao-contact img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.kakao-contact span {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1;
+}
+
 .button,
 .contact-methods a,
 .share-item a,
