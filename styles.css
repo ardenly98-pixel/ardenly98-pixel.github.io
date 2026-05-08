@@ -301,43 +301,10 @@ h1 {
 .portfolio-card,
 .share-item,
 .contact-section {
-  position: relative;
-  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.94) 45%, rgba(246, 252, 249, 0.84) 100%),
-    var(--panel);
+  background: var(--panel);
   box-shadow: 0 10px 28px rgba(18, 38, 35, 0.06);
-}
-
-.contact-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 42%, rgba(255, 255, 255, 0.54) 100%),
-    linear-gradient(0deg, rgba(238, 245, 241, 0.28), rgba(238, 245, 241, 0.28)),
-    url("assets/lectureimg.png") 58% 46% / min(76%, 980px) auto no-repeat;
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-.contact-section::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.72) 42%, rgba(255, 255, 255, 0.2) 100%),
-    radial-gradient(circle at 58% 46%, rgba(255, 255, 255, 0.08), transparent 32%);
-  pointer-events: none;
-}
-
-.contact-section > * {
-  position: relative;
-  z-index: 1;
 }
 
 .profile-card {
@@ -1275,19 +1242,6 @@ footer p {
     justify-content: flex-start;
   }
 
-  .contact-section::before {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.88) 52%, rgba(255, 255, 255, 0.94) 100%),
-      linear-gradient(0deg, rgba(238, 245, 241, 0.24), rgba(238, 245, 241, 0.24)),
-      url("assets/lectureimg.png") 78% 8% / 128% auto no-repeat;
-    opacity: 0.92;
-  }
-
-  .contact-section::after {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.92) 62%, rgba(255, 255, 255, 0.96) 100%),
-      radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.08), transparent 32%);
-  }
 }
 
 @media (max-width: 760px) {
