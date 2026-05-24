@@ -2,7 +2,7 @@ const ADMIN_PASSWORD = "0303";
 const portfolioStorageKey = "sanggeunPortfolioItems";
 const shareStorageKey = "sanggeunShareItems";
 const deletedDefaultPortfolioStorageKey = "sanggeunDeletedDefaultPortfolioIds";
-const postsJsonPath = "posts.json?v=2026050601";
+const postsJsonPath = "posts.json?v=2026052501";
 const shareBoardNames = ["전체", "앱/도구", "GPT/GEMS", "활동지"];
 const shareItemsPerPage = 3;
 const fileDatabaseName = "sanggeunBoardFiles";
@@ -76,6 +76,17 @@ const fallbackJsonShareItems = [
     description:
       "한글(HWP/HWPX), 워드, 엑셀, 파워포인트 등 여러 문서 파일을 한 번에 PDF로 변환해주는 프로그램입니다.\n※ 변환 중에는 다른 창을 클릭하지 말고 잠시 기다려야 합니다. 일부 문서 형식은 한컴오피스 또는 LibreOffice 설치가 필요할 수 있습니다.",
     url: "https://drive.google.com/drive/folders/1OHxP7_t46k3qbHOUnBz8bA0-FijJ_od2?usp=drive_link",
+    file: null,
+    source: "json",
+  },
+  {
+    id: "skssamtool",
+    board: "앱/도구",
+    category: "일상수업",
+    title: "수업 화면 확대·판서·타이머·고정 캡처 도구 「skssamtool」",
+    description:
+      "수업 화면을 자유롭게 확대·판서·고정하며, 교사의 수업 진행을 더욱 편리하게 도와주는 Windows용 수업 지원 도구입니다.",
+    url: "https://drive.google.com/drive/folders/1n0nhpRyB92DmHZrU9X_P-oCQZaWiyXVt?usp=drive_link",
     file: null,
     source: "json",
   },
